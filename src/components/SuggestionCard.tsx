@@ -21,7 +21,7 @@ export function SuggestionCard({ icon, label, state = "default" }: SuggestionCar
       <img
         src={icon}
         alt=""
-        className={`size-6 ${state === "selected" ? "brightness-[0.6]" : ""}`}
+        className={`size-6 object-contain ${state === "selected" ? "brightness-[0.6]" : ""}`}
       />
       <span
         className={`whitespace-nowrap text-center text-base font-normal leading-6 ${

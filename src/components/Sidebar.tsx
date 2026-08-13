@@ -62,9 +62,9 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
             dark ? "bg-[#1f1730]" : "bg-brand-tint"
           }`}
         >
-          <img src={logo} alt="AI Agent logo" className="size-8 shrink-0" />
+          <img src={logo} alt="AI Agent logo" className="size-8 shrink-0 object-contain" />
           <button type="button" aria-label="Expand sidebar" className="size-6 shrink-0">
-            <img src={rightPanelOpen} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""}`} />
+            <img src={rightPanelOpen} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
           </button>
           <button
             type="button"
@@ -73,7 +73,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
               dark ? "border-[#9747ff]" : "border-secondary-border"
             }`}
           >
-            <img src={addAlt} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""}`} />
+            <img src={addAlt} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
           </button>
           <button
             type="button"
@@ -82,7 +82,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
               dark ? "bg-[#2e2b33]" : "bg-white"
             }`}
           >
-            <img src={search} alt="" className={`size-4 ${dark ? "brightness-0 invert" : ""}`} />
+            <img src={search} alt="" className={`size-4 ${dark ? "brightness-0 invert" : ""} object-contain`} />
           </button>
           {collapsedIconGroups.map((group, i) => (
             <div key={i} className="flex w-full flex-col items-center gap-2 border-t border-white/20 pt-3">
@@ -93,7 +93,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
                   aria-label={item.label}
                   className="flex size-9 shrink-0 items-center justify-center rounded-full hover:bg-black/[0.05]"
                 >
-                  <img src={item.icon} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""}`} />
+                  <img src={item.icon} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
                 </button>
               ))}
             </div>
@@ -115,7 +115,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
       >
         <div className="flex w-[206px] items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <img src={logo} alt="AI Agent logo" className="size-8" />
+            <img src={logo} alt="AI Agent logo" className="size-8 object-contain" />
             <p
               className={`whitespace-nowrap text-base font-bold leading-6 ${
                 dark ? "text-white" : "text-text-primary"
@@ -128,7 +128,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
             <img
               src={rightPanelClose}
               alt=""
-              className={`size-6 ${dark ? "brightness-0 invert" : ""}`}
+              className={`size-6 object-contain ${dark ? "brightness-0 invert" : ""}`}
             />
           </button>
         </div>
@@ -140,7 +140,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
               dark ? "border-[#9747ff]" : "border-secondary-border"
             }`}
           >
-            <img src={addAlt} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""}`} />
+            <img src={addAlt} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
             <span
               className={`text-center text-sm font-semibold leading-6 ${
                 dark ? "text-[#c4a1ff]" : "text-secondary-text"
@@ -155,7 +155,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
                 dark ? "border-[#62606e] bg-[#2e2b33]" : "border-input-border bg-white"
               }`}
             >
-              <img src={search} alt="" className={`size-4 shrink-0 ${dark ? "brightness-0 invert" : ""}`} />
+              <img src={search} alt="" className={`size-4 shrink-0 ${dark ? "brightness-0 invert" : ""} object-contain`} />
               <span
                 className={`min-w-0 flex-1 text-sm font-normal leading-6 ${
                   dark ? "text-[#b0b2be]" : "text-input-placeholder"
@@ -195,7 +195,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
                 <img
                   src={arrowForward}
                   alt=""
-                  className={`size-6 ${dark ? "brightness-0 invert" : ""}`}
+                  className={`size-6 object-contain ${dark ? "brightness-0 invert" : ""}`}
                 />
               </button>
             </div>
@@ -245,7 +245,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
               <img
                 src={chevronDownStroke}
                 alt=""
-                className={`size-6 shrink-0 -rotate-90 ${dark ? "brightness-0 invert" : ""}`}
+                className={`size-6 shrink-0 -rotate-90 object-contain ${dark ? "brightness-0 invert" : ""}`}
               />
             </div>
           </div>

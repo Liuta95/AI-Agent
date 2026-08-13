@@ -55,7 +55,7 @@ export function MenuItem({
       onClick={onClick}
       className={className || `${rowClass(disabled)} text-left`}
     >
-      {icon && <img src={icon} alt="" className="size-6 shrink-0" />}
+      {icon && <img src={icon} alt="" className="size-6 shrink-0 object-contain" />}
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span
           className={`truncate text-base font-normal leading-6 ${

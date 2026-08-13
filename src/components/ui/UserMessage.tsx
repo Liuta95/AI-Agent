@@ -28,7 +28,7 @@ export function UserMessage({ text, size = "big", hovered = false, dark = false,
       {hovered && (
         <div className="flex w-full items-center justify-end">
           <button type="button" aria-label="Copy message" className="size-6 shrink-0">
-            <img src={copyIcon} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""}`} />
+            <img src={copyIcon} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
           </button>
         </div>
       )}

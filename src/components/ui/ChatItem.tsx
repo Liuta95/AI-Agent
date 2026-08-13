@@ -68,24 +68,24 @@ export function ChatActions({
     <div className={className || "flex h-6 w-[680px] items-center justify-between"}>
       <div className="flex items-center gap-2">
         <button type="button" aria-label="Copy" onClick={onCopy} className="size-6 shrink-0">
-          <img src={copyIcon} alt="" className="size-6" />
+          <img src={copyIcon} alt="" className="size-6 object-contain" />
         </button>
         <button type="button" aria-label="Regenerate" onClick={onRegenerate} className="size-6 shrink-0">
-          <img src={autorenewIcon} alt="" className="size-6" />
+          <img src={autorenewIcon} alt="" className="size-6 object-contain" />
         </button>
         <button type="button" aria-label="Download" onClick={onDownload} className="size-6 shrink-0">
-          <img src={downloadIcon} alt="" className="size-6" />
+          <img src={downloadIcon} alt="" className="size-6 object-contain" />
         </button>
         <button type="button" aria-label="Read aloud" onClick={onReadAloud} className="size-6 shrink-0">
-          <img src={volumeUpIcon} alt="" className="size-6" />
+          <img src={volumeUpIcon} alt="" className="size-6 object-contain" />
         </button>
       </div>
       <div className="flex items-center gap-2">
         <button type="button" aria-label="Good response" onClick={onThumbUp} className="size-6 shrink-0">
-          <img src={thumbUpIcon} alt="" className="size-6" />
+          <img src={thumbUpIcon} alt="" className="size-6 object-contain" />
         </button>
         <button type="button" aria-label="Bad response" onClick={onThumbDown} className="size-6 shrink-0">
-          <img src={thumbDownIcon} alt="" className="size-6" />
+          <img src={thumbDownIcon} alt="" className="size-6 object-contain" />
         </button>
       </div>
     </div>
@@ -100,7 +100,7 @@ export function RelatedItems({ items }: RelatedItemsProps) {
   return (
     <div className="flex w-[680px] flex-col items-start gap-4">
       <div className="flex w-[680px] items-center gap-1">
-        <img src={keyboardArrowUpIcon} alt="" className="size-6" />
+        <img src={keyboardArrowUpIcon} alt="" className="size-6 object-contain" />
         <p className="text-xs font-semibold leading-4 text-[#62606e]">Search related topics</p>
       </div>
       <div className="flex w-[680px] flex-col items-start gap-2">
@@ -111,7 +111,7 @@ export function RelatedItems({ items }: RelatedItemsProps) {
             </div>
             <div className="flex h-6 items-center gap-1 rounded-lg bg-[#f5f2fa] py-2 pl-1.5 pr-1">
               <p className="whitespace-nowrap text-sm font-normal leading-6 text-text-primary">{item}</p>
-              <img src={openInNewIcon} alt="" className="size-4" />
+              <img src={openInNewIcon} alt="" className="size-4 object-contain" />
             </div>
           </div>
         ))}
@@ -130,7 +130,7 @@ export function References({ items, defaultOpen = true }: ReferencesProps) {
     <details open={defaultOpen} className="w-full">
       <summary className="flex w-full cursor-pointer list-none items-center gap-1">
         <p className="text-xs font-semibold leading-normal text-[#61647a]">References</p>
-        <img src={chevronDownStroke} alt="" className="size-6" />
+        <img src={chevronDownStroke} alt="" className="size-6 object-contain" />
       </summary>
       <div className="mt-2 flex w-full flex-col items-start gap-2">
         {items.map((item, i) => (
@@ -139,7 +139,7 @@ export function References({ items, defaultOpen = true }: ReferencesProps) {
               <p className="text-xs font-semibold leading-4 text-[#62606e]">{i + 1}</p>
             </div>
             <div className="flex h-6 items-center gap-1 rounded-lg bg-[#f5f2fa] py-2 pl-1.5 pr-1">
-              <img src={docSmallIcon} alt="" className="size-4" />
+              <img src={docSmallIcon} alt="" className="size-4 object-contain" />
               <p className="whitespace-nowrap text-sm font-normal leading-6 text-text-primary">{item}</p>
             </div>
           </div>

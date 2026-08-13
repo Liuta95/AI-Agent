@@ -12,7 +12,7 @@ export function TopicHeader({ title, action, dark = false }: TopicHeaderProps) {
       </p>
       {action && (
         <button type="button" aria-label={action.label} className="size-6 shrink-0">
-          <img src={action.icon} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""}`} />
+          <img src={action.icon} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
         </button>
       )}
     </div>

@@ -98,7 +98,7 @@ export function PromptBar({
           aria-label="Add attachment"
           className="flex shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl"
         >
-          <img src={addIcon} alt="" className="size-6" />
+          <img src={addIcon} alt="" className="size-6 object-contain" />
         </button>
         <div className="flex shrink-0 items-center gap-4">
           <button
@@ -106,7 +106,7 @@ export function PromptBar({
             aria-label="Voice input"
             className="flex shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl"
           >
-            <img src={micIcon} alt="" className="size-6" />
+            <img src={micIcon} alt="" className="size-6 object-contain" />
           </button>
           <button
             type="button"
@@ -115,13 +115,13 @@ export function PromptBar({
               sendActive ? (dark ? "bg-[#1f1730]" : "bg-[#f5f2fa]") : ""
             }`}
           >
-            <img src={sendIcon} alt="" className="size-6" />
+            <img src={sendIcon} alt="" className="size-6 object-contain" />
           </button>
         </div>
       </div>
       {state === "dropFiles" && (
         <div className="absolute inset-0 flex items-center justify-center gap-2.5">
-          <img src={downloadIcon} alt="" className="size-6" />
+          <img src={downloadIcon} alt="" className="size-6 object-contain" />
           <p className="text-base font-normal leading-normal text-[#6e598e]">Drop your files here.</p>
         </div>
       )}

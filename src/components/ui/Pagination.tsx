@@ -40,7 +40,7 @@ function IconButton({ icon, label, onClick, disabled }: IconButtonProps) {
       disabled={disabled}
       className="flex shrink-0 items-center gap-1 overflow-clip rounded-3xl p-1 disabled:opacity-40"
     >
-      <img src={icon} alt="" className="size-6" />
+      <img src={icon} alt="" className="size-6 object-contain" />
     </button>
   );
 }
@@ -133,7 +133,7 @@ export function PaginationBar({
               </option>
             ))}
           </select>
-          <img src={chevronDownSmallIcon} alt="" className="size-6" />
+          <img src={chevronDownSmallIcon} alt="" className="size-6 object-contain" />
         </label>
       </div>
     </div>

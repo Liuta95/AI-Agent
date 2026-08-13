@@ -73,7 +73,7 @@ export function DailyNewsCard({
       </div>
       <div className="flex h-14 w-full items-center justify-between border-t border-input-border px-4">
         <div className="flex items-center gap-2">
-          <img src={calendarIcon} alt="" className="size-6" />
+          <img src={calendarIcon} alt="" className="size-6 object-contain" />
           <p className="text-sm font-normal leading-6 text-text-secondary">{nextRun}</p>
         </div>
         <div className="flex items-center gap-2.5">
@@ -83,7 +83,7 @@ export function DailyNewsCard({
             onClick={onPause}
             className="flex w-9 shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl border border-secondary-border px-2 py-1.5"
           >
-            <img src={pauseIcon} alt="" className="size-6" />
+            <img src={pauseIcon} alt="" className="size-6 object-contain" />
           </button>
           <button
             type="button"
@@ -91,7 +91,7 @@ export function DailyNewsCard({
             onClick={onEdit}
             className="flex w-9 shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl border border-secondary-border px-2 py-1.5"
           >
-            <img src={editIcon} alt="" className="size-6" />
+            <img src={editIcon} alt="" className="size-6 object-contain" />
           </button>
           <button
             type="button"
@@ -99,7 +99,7 @@ export function DailyNewsCard({
             onClick={onMore}
             className="flex w-9 shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl border border-secondary-border px-2 py-1.5"
           >
-            <img src={moreIcon} alt="" className="size-6" />
+            <img src={moreIcon} alt="" className="size-6 object-contain" />
           </button>
         </div>
       </div>

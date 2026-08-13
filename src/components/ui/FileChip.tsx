@@ -53,15 +53,15 @@ export function FileChip({
       }
     >
       {uploading ? (
-        <img src={loaderIcon} alt="" className="size-6 shrink-0 animate-spin" />
+        <img src={loaderIcon} alt="" className="size-6 shrink-0 animate-spin object-contain" />
       ) : kind === "picture" ? (
-        <img src={pictureIcon} alt="" className="size-6 shrink-0" />
+        <img src={pictureIcon} alt="" className="size-6 shrink-0 object-contain" />
       ) : (
-        <img src={disabled ? docIconDisabled : docIcon} alt="" className="size-6 shrink-0 rounded" />
+        <img src={disabled ? docIconDisabled : docIcon} alt="" className="size-6 shrink-0 rounded object-contain" />
       )}
       <p className={`whitespace-nowrap text-xs font-normal leading-4 ${textColor}`}>{fileName}</p>
       <button type="button" aria-label="Remove file" onClick={onRemove} disabled={disabled} className="size-6 shrink-0">
-        <img src={closeIcon} alt="" className="size-full" />
+        <img src={closeIcon} alt="" className="size-full object-contain" />
       </button>
     </div>
   );
