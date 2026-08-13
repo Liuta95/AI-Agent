@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import logo from "../assets/images/logo.svg";
 import avatar from "../assets/images/avatar.png";
 import rightPanelClose from "../assets/icons/right-panel-close.svg";
@@ -16,6 +17,7 @@ import chevronDownStroke from "../assets/icons/chevron-down-stroke.svg";
 import { Divider } from "./Divider";
 import { SidebarMenuItem } from "./SidebarMenuItem";
 import { TopicHeader } from "./TopicHeader";
+import { SearchDropdown } from "./ui/SearchDropdown";
 
 const tools = [
   { icon: extension, label: "Text" },
@@ -54,6 +56,14 @@ type SidebarProps = {
 };
 
 export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
+  const [searchValue, setSearchValue] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  function handleSearchSelect(label: string) {
+    setSearchValue(label);
+    searchInputRef.current?.blur();
+  }
+
   if (collapsed) {
     return (
       <div className="flex h-full w-[76px] shrink-0 flex-col items-center overflow-clip rounded-xl py-3">
@@ -149,20 +159,30 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
               New chat
             </span>
           </button>
-          <div className="flex w-full flex-col items-start gap-2">
+          <div className="group relative flex w-full flex-col items-start gap-2">
             <div
               className={`flex w-full shrink-0 items-center gap-1 rounded-3xl border py-1.5 pl-3 pr-2 ${
                 dark ? "border-[#62606e] bg-[#2e2b33]" : "border-input-border bg-white"
               }`}
             >
-              <img src={search} alt="" className={`size-4 shrink-0 ${dark ? "brightness-0 invert" : ""} object-contain`} />
-              <span
-                className={`min-w-0 flex-1 text-sm font-normal leading-6 ${
+              <img
+                src={search}
+                alt=""
+                className={`size-4 shrink-0 object-contain ${dark ? "brightness-0 invert" : ""}`}
+              />
+              <input
+                ref={searchInputRef}
+                type="text"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder="Search chats"
+                className={`min-w-0 flex-1 bg-transparent text-sm font-normal leading-6 outline-none placeholder:text-current ${
                   dark ? "text-[#b0b2be]" : "text-input-placeholder"
                 }`}
-              >
-                Search chats
-              </span>
+              />
+            </div>
+            <div className="absolute left-0 top-full z-20 mt-1 hidden group-focus-within:block">
+              <SearchDropdown dark={dark} onSelect={handleSearchSelect} />
             </div>
           </div>
         </div>
