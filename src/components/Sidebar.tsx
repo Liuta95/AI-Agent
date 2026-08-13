@@ -1,6 +1,7 @@
 import logo from "../assets/images/logo.svg";
 import avatar from "../assets/images/avatar.png";
 import rightPanelClose from "../assets/icons/right-panel-close.svg";
+import rightPanelOpen from "../assets/icons/right-panel-open.svg";
 import addAlt from "../assets/icons/add-alt.svg";
 import search from "../assets/icons/search.svg";
 import news from "../assets/icons/news.svg";
@@ -37,36 +38,129 @@ const chats = [
   { icon: chatBubbleAlt, label: "Knowledge base" },
 ];
 
-export function Sidebar() {
+const collapsedIconGroups: { icon: string; label: string }[][] = [
+  [
+    { icon: news, label: "Daily news" },
+    { icon: history, label: "History" },
+  ],
+  tools,
+  projects,
+  chats,
+];
+
+type SidebarProps = {
+  dark?: boolean;
+  collapsed?: boolean;
+};
+
+export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
+  if (collapsed) {
+    return (
+      <div className="flex h-full w-[76px] shrink-0 flex-col items-center overflow-clip rounded-xl py-3">
+        <div
+          className={`flex min-h-0 w-16 flex-1 flex-col items-center gap-6 overflow-y-auto rounded-xl p-3 ${
+            dark ? "bg-[#1f1730]" : "bg-brand-tint"
+          }`}
+        >
+          <img src={logo} alt="AI Agent logo" className="size-8 shrink-0" />
+          <button type="button" aria-label="Expand sidebar" className="size-6 shrink-0">
+            <img src={rightPanelOpen} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""}`} />
+          </button>
+          <button
+            type="button"
+            aria-label="New chat"
+            className={`flex size-9 shrink-0 items-center justify-center rounded-full border ${
+              dark ? "border-[#9747ff]" : "border-secondary-border"
+            }`}
+          >
+            <img src={addAlt} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""}`} />
+          </button>
+          <button
+            type="button"
+            aria-label="Search chats"
+            className={`flex size-9 shrink-0 items-center justify-center rounded-full ${
+              dark ? "bg-[#2e2b33]" : "bg-white"
+            }`}
+          >
+            <img src={search} alt="" className={`size-4 ${dark ? "brightness-0 invert" : ""}`} />
+          </button>
+          {collapsedIconGroups.map((group, i) => (
+            <div key={i} className="flex w-full flex-col items-center gap-2 border-t border-white/20 pt-3">
+              {group.map((item, j) => (
+                <button
+                  key={`${item.label}-${j}`}
+                  type="button"
+                  aria-label={item.label}
+                  className="flex size-9 shrink-0 items-center justify-center rounded-full hover:bg-black/[0.05]"
+                >
+                  <img src={item.icon} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""}`} />
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div className="flex w-full flex-col items-center gap-2 border-t border-white/20 pt-2">
+          <img src={avatar} alt="" className="size-9 shrink-0 rounded-full object-cover" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-full shrink-0 flex-col items-start overflow-clip rounded-xl py-3 pl-3">
-      <div className="flex min-h-0 flex-1 flex-col items-start gap-4 overflow-clip rounded-xl bg-brand-tint p-6">
+      <div
+        className={`flex min-h-0 flex-1 flex-col items-start gap-4 overflow-clip rounded-xl p-6 ${
+          dark ? "bg-[#1f1730]" : "bg-brand-tint"
+        }`}
+      >
         <div className="flex w-[206px] items-center justify-between">
           <div className="flex items-center gap-2.5">
             <img src={logo} alt="AI Agent logo" className="size-8" />
-            <p className="whitespace-nowrap text-base font-bold leading-6 text-text-primary">
+            <p
+              className={`whitespace-nowrap text-base font-bold leading-6 ${
+                dark ? "text-white" : "text-text-primary"
+              }`}
+            >
               AI Agent
             </p>
           </div>
           <button type="button" aria-label="Collapse sidebar" className="size-6 shrink-0">
-            <img src={rightPanelClose} alt="" className="size-6" />
+            <img
+              src={rightPanelClose}
+              alt=""
+              className={`size-6 ${dark ? "brightness-0 invert" : ""}`}
+            />
           </button>
         </div>
 
         <div className="flex w-full flex-col items-start gap-1">
           <button
             type="button"
-            className="flex w-full shrink-0 items-center justify-center gap-1 rounded-2xl border border-secondary-border px-4 py-1.5"
+            className={`flex w-full shrink-0 items-center justify-center gap-1 rounded-2xl border px-4 py-1.5 ${
+              dark ? "border-[#9747ff]" : "border-secondary-border"
+            }`}
           >
-            <img src={addAlt} alt="" className="size-6" />
-            <span className="text-center text-sm font-semibold leading-6 text-secondary-text">
+            <img src={addAlt} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""}`} />
+            <span
+              className={`text-center text-sm font-semibold leading-6 ${
+                dark ? "text-[#c4a1ff]" : "text-secondary-text"
+              }`}
+            >
               New chat
             </span>
           </button>
           <div className="flex w-full flex-col items-start gap-2">
-            <div className="flex w-full shrink-0 items-center gap-1 rounded-3xl border border-input-border bg-white py-1.5 pl-3 pr-2">
-              <img src={search} alt="" className="size-4 shrink-0" />
-              <span className="min-w-0 flex-1 text-sm font-normal leading-6 text-input-placeholder">
+            <div
+              className={`flex w-full shrink-0 items-center gap-1 rounded-3xl border py-1.5 pl-3 pr-2 ${
+                dark ? "border-[#62606e] bg-[#2e2b33]" : "border-input-border bg-white"
+              }`}
+            >
+              <img src={search} alt="" className={`size-4 shrink-0 ${dark ? "brightness-0 invert" : ""}`} />
+              <span
+                className={`min-w-0 flex-1 text-sm font-normal leading-6 ${
+                  dark ? "text-[#b0b2be]" : "text-input-placeholder"
+                }`}
+              >
                 Search chats
               </span>
             </div>
@@ -74,27 +168,35 @@ export function Sidebar() {
         </div>
 
         <div className="flex shrink-0 flex-col items-start gap-1">
-          <SidebarMenuItem icon={news} label="Daily news" />
-          <SidebarMenuItem icon={history} label="History" />
+          <SidebarMenuItem icon={news} label="Daily news" dark={dark} />
+          <SidebarMenuItem icon={history} label="History" dark={dark} />
         </div>
 
         <Divider />
 
         <div className="flex min-h-0 w-full flex-1 flex-col items-start gap-2 overflow-y-auto overflow-x-clip">
           <div className="flex w-full shrink-0 flex-col items-start gap-1">
-            <TopicHeader title="Tools" />
+            <TopicHeader title="Tools" dark={dark} />
             <div className="flex w-full flex-col items-start">
               {tools.map((tool) => (
-                <SidebarMenuItem key={tool.label} icon={tool.icon} label={tool.label} />
+                <SidebarMenuItem key={tool.label} icon={tool.icon} label={tool.label} dark={dark} />
               ))}
               <button
                 type="button"
                 className="flex shrink-0 items-center gap-1 overflow-clip rounded-3xl px-2 py-1"
               >
-                <span className="text-center text-xs font-semibold leading-6 text-secondary-text">
+                <span
+                  className={`text-center text-xs font-semibold leading-6 ${
+                    dark ? "text-[#c4a1ff]" : "text-secondary-text"
+                  }`}
+                >
                   Explore all
                 </span>
-                <img src={arrowForward} alt="" className="size-6" />
+                <img
+                  src={arrowForward}
+                  alt=""
+                  className={`size-6 ${dark ? "brightness-0 invert" : ""}`}
+                />
               </button>
             </div>
           </div>
@@ -102,10 +204,14 @@ export function Sidebar() {
           <Divider />
 
           <div className="flex w-[206px] shrink-0 flex-col items-start gap-1">
-            <TopicHeader title="Projects" action={{ icon: addProject, label: "New project" }} />
+            <TopicHeader
+              title="Projects"
+              action={{ icon: addProject, label: "New project" }}
+              dark={dark}
+            />
             <div className="flex w-full flex-col items-start">
               {projects.map((project) => (
-                <SidebarMenuItem key={project.label} icon={project.icon} label={project.label} />
+                <SidebarMenuItem key={project.label} icon={project.icon} label={project.label} dark={dark} />
               ))}
             </div>
           </div>
@@ -113,10 +219,10 @@ export function Sidebar() {
           <Divider />
 
           <div className="flex w-full shrink-0 flex-col items-start gap-1 overflow-clip">
-            <TopicHeader title="Chats" />
+            <TopicHeader title="Chats" dark={dark} />
             <div className="flex w-full flex-col items-start">
               {chats.map((chat, i) => (
-                <SidebarMenuItem key={`${chat.label}-${i}`} icon={chat.icon} label={chat.label} />
+                <SidebarMenuItem key={`${chat.label}-${i}`} icon={chat.icon} label={chat.label} dark={dark} />
               ))}
             </div>
           </div>
@@ -129,10 +235,18 @@ export function Sidebar() {
               <div className="flex shrink-0 items-center overflow-clip rounded-full">
                 <img src={avatar} alt="" className="size-9 object-cover" />
               </div>
-              <p className="min-w-0 flex-1 text-sm font-normal leading-6 text-text-primary">
+              <p
+                className={`min-w-0 flex-1 text-sm font-normal leading-6 ${
+                  dark ? "text-white" : "text-text-primary"
+                }`}
+              >
                 Anastasiia Liuta
               </p>
-              <img src={chevronDownStroke} alt="" className="size-6 shrink-0 -rotate-90" />
+              <img
+                src={chevronDownStroke}
+                alt=""
+                className={`size-6 shrink-0 -rotate-90 ${dark ? "brightness-0 invert" : ""}`}
+              />
             </div>
           </div>
         </div>
