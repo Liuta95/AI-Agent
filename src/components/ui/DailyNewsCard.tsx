@@ -110,28 +110,34 @@ export function DailyNewsCard({
 type DailyNewsWidgetProps = {
   title?: string;
   description?: string;
+  thumb?: string;
+  onClick?: () => void;
   className?: string;
 };
 
 export function DailyNewsWidget({
   title = "Competitor tracking",
   description = "Daily updates on competitor and features.",
+  thumb: thumbOverride,
+  onClick,
   className,
 }: DailyNewsWidgetProps) {
   return (
-    <div
+    <button
+      type="button"
+      onClick={onClick}
       className={
         className ||
-        "flex w-60 items-center justify-center gap-2 rounded-xl border border-input-border p-3 backdrop-blur-[8px]"
+        "flex w-60 items-center justify-center gap-2 rounded-xl border border-input-border p-3 text-left backdrop-blur-[8px] transition-colors hover:bg-[#f5f2fa]"
       }
     >
       <div className="flex size-12 shrink-0 items-center justify-center rounded-lg p-2">
-        <img src={thumbSmall} alt="" className="size-full rounded-lg object-cover" />
+        <img src={thumbOverride || thumbSmall} alt="" className="size-full rounded-lg object-cover" />
       </div>
       <div className="flex min-w-0 flex-1 flex-col items-start gap-0.5">
         <p className="text-xs font-semibold leading-4 text-text-primary">{title}</p>
         <p className="text-xs font-normal leading-4 text-[#61647a]">{description}</p>
       </div>
-    </div>
+    </button>
   );
 }

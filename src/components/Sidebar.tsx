@@ -53,9 +53,16 @@ const collapsedIconGroups: { icon: string; label: string }[][] = [
 type SidebarProps = {
   dark?: boolean;
   collapsed?: boolean;
+  onNavigateHome?: () => void;
+  onNavigateDailyNews?: () => void;
 };
 
-export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
+export function Sidebar({
+  dark = false,
+  collapsed = false,
+  onNavigateHome,
+  onNavigateDailyNews,
+}: SidebarProps) {
   const [searchValue, setSearchValue] = useState("");
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -72,13 +79,16 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
             dark ? "bg-[#1f1730]" : "bg-brand-tint"
           }`}
         >
-          <img src={logo} alt="AI Agent logo" className="size-8 shrink-0 object-contain" />
+          <button type="button" aria-label="Home" onClick={onNavigateHome} className="size-8 shrink-0">
+            <img src={logo} alt="AI Agent logo" className="size-8 object-contain" />
+          </button>
           <button type="button" aria-label="Expand sidebar" className="size-6 shrink-0">
             <img src={rightPanelOpen} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
           </button>
           <button
             type="button"
             aria-label="New chat"
+            onClick={onNavigateHome}
             className={`flex size-9 shrink-0 items-center justify-center rounded-full border ${
               dark ? "border-[#9747ff]" : "border-secondary-border"
             }`}
@@ -101,6 +111,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
                   key={`${item.label}-${j}`}
                   type="button"
                   aria-label={item.label}
+                  onClick={item.label === "Daily news" ? onNavigateDailyNews : undefined}
                   className="flex size-9 shrink-0 items-center justify-center rounded-full hover:bg-black/[0.05]"
                 >
                   <img src={item.icon} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
@@ -124,7 +135,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
         }`}
       >
         <div className="flex w-[206px] items-center justify-between">
-          <div className="flex items-center gap-2.5">
+          <button type="button" onClick={onNavigateHome} className="flex items-center gap-2.5">
             <img src={logo} alt="AI Agent logo" className="size-8 object-contain" />
             <p
               className={`whitespace-nowrap text-base font-bold leading-6 ${
@@ -133,7 +144,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
             >
               AI Agent
             </p>
-          </div>
+          </button>
           <button type="button" aria-label="Collapse sidebar" className="size-6 shrink-0">
             <img
               src={rightPanelClose}
@@ -146,6 +157,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
         <div className="flex w-full flex-col items-start gap-1">
           <button
             type="button"
+            onClick={onNavigateHome}
             className={`flex w-full shrink-0 items-center justify-center gap-1 rounded-2xl border px-4 py-1.5 ${
               dark ? "border-[#9747ff]" : "border-secondary-border"
             }`}
@@ -188,7 +200,7 @@ export function Sidebar({ dark = false, collapsed = false }: SidebarProps) {
         </div>
 
         <div className="flex shrink-0 flex-col items-start gap-1">
-          <SidebarMenuItem icon={news} label="Daily news" dark={dark} />
+          <SidebarMenuItem icon={news} label="Daily news" dark={dark} onClick={onNavigateDailyNews} />
           <SidebarMenuItem icon={history} label="History" dark={dark} />
         </div>
 

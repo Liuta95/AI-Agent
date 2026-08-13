@@ -5,6 +5,7 @@ type SidebarMenuItemProps = {
   label: string;
   state?: SidebarMenuItemState;
   dark?: boolean;
+  onClick?: () => void;
 };
 
 function stateClasses(state: SidebarMenuItemState, dark: boolean) {
@@ -17,10 +18,12 @@ function stateClasses(state: SidebarMenuItemState, dark: boolean) {
   return "";
 }
 
-export function SidebarMenuItem({ icon, label, state = "default", dark = false }: SidebarMenuItemProps) {
+export function SidebarMenuItem({ icon, label, state = "default", dark = false, onClick }: SidebarMenuItemProps) {
   return (
-    <div
-      className={`flex w-[206px] shrink-0 items-center gap-1 rounded-xl px-2 py-0.5 ${stateClasses(state, dark)} ${
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex w-[206px] shrink-0 items-center gap-1 rounded-xl px-2 py-0.5 text-left ${stateClasses(state, dark)} ${
         state === "default" ? (dark ? "hover:bg-white/10" : "hover:bg-black/[0.03]") : ""
       }`}
     >
@@ -34,6 +37,6 @@ export function SidebarMenuItem({ icon, label, state = "default", dark = false }
           {label}
         </p>
       </div>
-    </div>
+    </button>
   );
 }
