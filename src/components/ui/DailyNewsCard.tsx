@@ -46,7 +46,7 @@ export function DailyNewsCard({
     <div
       className={
         className ||
-        `flex w-full max-w-[511px] flex-col items-start overflow-clip rounded-xl backdrop-blur-[8px] ${STATE_CLASSES[state]}`
+        `flex w-full flex-col items-start overflow-clip rounded-xl backdrop-blur-[8px] ${STATE_CLASSES[state]}`
       }
     >
       <div className="flex w-full flex-col items-start justify-center gap-3 pt-4">
