@@ -20,7 +20,11 @@ export default function App() {
   return (
     <div className="h-screen bg-white">
       <div className="flex h-full items-stretch justify-between">
-        <Sidebar onNavigateHome={() => setView("home")} onNavigateDailyNews={() => setView("daily-news")} />
+        <Sidebar
+          activeView={view}
+          onNavigateHome={() => setView("home")}
+          onNavigateDailyNews={() => setView("daily-news")}
+        />
         {view === "home" ? (
           <>
             <HomePage />

@@ -50,9 +50,12 @@ const collapsedIconGroups: { icon: string; label: string }[][] = [
   chats,
 ];
 
+type SidebarView = "home" | "daily-news";
+
 type SidebarProps = {
   dark?: boolean;
   collapsed?: boolean;
+  activeView?: SidebarView;
   onNavigateHome?: () => void;
   onNavigateDailyNews?: () => void;
 };
@@ -60,6 +63,7 @@ type SidebarProps = {
 export function Sidebar({
   dark = false,
   collapsed = false,
+  activeView = "home",
   onNavigateHome,
   onNavigateDailyNews,
 }: SidebarProps) {
@@ -106,17 +110,26 @@ export function Sidebar({
           </button>
           {collapsedIconGroups.map((group, i) => (
             <div key={i} className="flex w-full flex-col items-center gap-2 border-t border-white/20 pt-3">
-              {group.map((item, j) => (
-                <button
-                  key={`${item.label}-${j}`}
-                  type="button"
-                  aria-label={item.label}
-                  onClick={item.label === "Daily news" ? onNavigateDailyNews : undefined}
-                  className="flex size-9 shrink-0 items-center justify-center rounded-full hover:bg-black/[0.05]"
-                >
-                  <img src={item.icon} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
-                </button>
-              ))}
+              {group.map((item, j) => {
+                const isActive = item.label === "Daily news" && activeView === "daily-news";
+                return (
+                  <button
+                    key={`${item.label}-${j}`}
+                    type="button"
+                    aria-label={item.label}
+                    onClick={item.label === "Daily news" ? onNavigateDailyNews : undefined}
+                    className={`flex size-9 shrink-0 items-center justify-center rounded-full ${
+                      isActive
+                        ? dark
+                          ? "border border-white/20 bg-white/10"
+                          : "border border-[#d1c4e6] bg-[#edecff]"
+                        : "hover:bg-black/[0.05]"
+                    }`}
+                  >
+                    <img src={item.icon} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
+                  </button>
+                );
+              })}
             </div>
           ))}
         </div>
@@ -200,7 +213,13 @@ export function Sidebar({
         </div>
 
         <div className="flex shrink-0 flex-col items-start gap-1">
-          <SidebarMenuItem icon={news} label="Daily news" dark={dark} onClick={onNavigateDailyNews} />
+          <SidebarMenuItem
+            icon={news}
+            label="Daily news"
+            dark={dark}
+            state={activeView === "daily-news" ? "selected" : "default"}
+            onClick={onNavigateDailyNews}
+          />
           <SidebarMenuItem icon={history} label="History" dark={dark} />
         </div>
 
