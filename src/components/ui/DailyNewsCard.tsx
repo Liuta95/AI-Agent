@@ -46,12 +46,12 @@ export function DailyNewsCard({
     <div
       className={
         className ||
-        `flex w-full flex-col items-start overflow-clip rounded-xl backdrop-blur-[8px] ${STATE_CLASSES[state]}`
+        `flex w-full flex-col items-start gap-4 overflow-clip rounded-xl backdrop-blur-[8px] ${STATE_CLASSES[state]}`
       }
     >
-      <div className="flex w-full flex-col items-start justify-center gap-3 pt-4">
-        <div className="flex h-40 w-full items-center justify-center p-2">
-          <img src={thumb} alt="" className="size-full rounded-lg object-cover" />
+      <div className="flex w-full flex-col items-start justify-center gap-3">
+        <div className="h-[159px] w-full shrink-0">
+          <img src={thumb} alt="" className="size-full object-cover" />
         </div>
         <div className="flex w-full flex-col items-start gap-2 px-4">
           <div className="flex w-full items-start justify-between">
