@@ -115,7 +115,7 @@ export function DailyNewsPage({ onCreateFeed, className }: DailyNewsPageProps) {
   return (
     <div
       className={
-        className || "flex h-full flex-1 flex-col items-center gap-10 overflow-y-auto px-12 pb-10 pt-0"
+        className || "flex h-full flex-1 flex-col items-center gap-10 overflow-y-auto px-12 pb-10 pt-10"
       }
     >
       <div className="flex w-full max-w-[1180px] flex-col items-center gap-4">
