@@ -84,7 +84,7 @@ export function Sidebar({
             dark ? "bg-[#1f1730]" : "bg-brand-tint"
           }`}
         >
-          <div className="scrollbar-thin flex min-h-0 w-full flex-1 flex-col items-center gap-6 overflow-y-auto">
+          <div className="scrollbar-thin flex min-h-0 w-full flex-1 flex-col items-center gap-3 overflow-y-auto">
             <button type="button" aria-label="Home" onClick={onNavigateHome} className="size-8 shrink-0">
               <img src={logo} alt="AI Agent logo" className="size-8 object-contain" />
             </button>
@@ -100,7 +100,7 @@ export function Sidebar({
               type="button"
               aria-label="New chat"
               onClick={onNavigateHome}
-              className={`flex size-9 shrink-0 items-center justify-center rounded-full border ${
+              className={`flex size-8 shrink-0 items-center justify-center rounded-full border ${
                 dark ? "border-[#9747ff]" : "border-secondary-border"
               }`}
             >
@@ -111,14 +111,14 @@ export function Sidebar({
             <button
               type="button"
               aria-label="Search chats"
-              className={`flex size-9 shrink-0 items-center justify-center rounded-full ${
+              className={`flex size-8 shrink-0 items-center justify-center rounded-full ${
                 dark ? "bg-[#2e2b33]" : "bg-white"
               }`}
             >
               <img src={search} alt="" className={`size-4 ${dark ? "brightness-0 invert" : ""} object-contain`} />
             </button>
             {collapsedIconGroups.map((group, i) => (
-              <div key={i} className="flex w-full flex-col items-center gap-2 border-t border-white/20 pt-3">
+              <div key={i} className="flex w-full flex-col items-center gap-1 border-t border-white/20 pt-2">
                 {group.map((item, j) => {
                   const isActive = item.label === "Daily news" && activeView === "daily-news";
                   return (
@@ -127,7 +127,7 @@ export function Sidebar({
                       type="button"
                       aria-label={item.label}
                       onClick={item.label === "Daily news" ? onNavigateDailyNews : undefined}
-                      className={`flex size-9 shrink-0 items-center justify-center rounded-full ${
+                      className={`flex size-8 shrink-0 items-center justify-center rounded-full ${
                         isActive
                           ? dark
                             ? "border border-white/20 bg-white/10"
