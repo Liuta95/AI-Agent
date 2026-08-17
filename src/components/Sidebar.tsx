@@ -86,8 +86,8 @@ export function Sidebar({
           <button type="button" aria-label="Home" onClick={onNavigateHome} className="size-8 shrink-0">
             <img src={logo} alt="AI Agent logo" className="size-8 object-contain" />
           </button>
-          <button type="button" aria-label="Expand sidebar" className="size-6 shrink-0">
-            <img src={rightPanelOpen} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
+          <button type="button" aria-label="Expand sidebar" className="flex size-6 shrink-0 items-center justify-center">
+            <img src={rightPanelOpen} alt="" className={`h-4 w-4 ${dark ? "brightness-0 invert" : ""}`} />
           </button>
           <button
             type="button"
@@ -97,7 +97,9 @@ export function Sidebar({
               dark ? "border-[#9747ff]" : "border-secondary-border"
             }`}
           >
-            <img src={addAlt} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
+            <span className="flex size-6 shrink-0 items-center justify-center">
+              <img src={addAlt} alt="" className={`h-4 w-4 ${dark ? "brightness-0 invert" : ""}`} />
+            </span>
           </button>
           <button
             type="button"
@@ -158,11 +160,15 @@ export function Sidebar({
               AI Agent
             </p>
           </button>
-          <button type="button" aria-label="Collapse sidebar" className="size-6 shrink-0">
+          <button
+            type="button"
+            aria-label="Collapse sidebar"
+            className="flex size-6 shrink-0 items-center justify-center"
+          >
             <img
               src={rightPanelClose}
               alt=""
-              className={`size-6 object-contain ${dark ? "brightness-0 invert" : ""}`}
+              className={`h-4 w-4 ${dark ? "brightness-0 invert" : ""}`}
             />
           </button>
         </div>
@@ -175,7 +181,9 @@ export function Sidebar({
               dark ? "border-[#9747ff]" : "border-secondary-border"
             }`}
           >
-            <img src={addAlt} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
+            <span className="flex size-6 shrink-0 items-center justify-center">
+              <img src={addAlt} alt="" className={`h-4 w-4 ${dark ? "brightness-0 invert" : ""}`} />
+            </span>
             <span
               className={`text-center text-sm font-semibold leading-6 ${
                 dark ? "text-[#c4a1ff]" : "text-secondary-text"
@@ -243,11 +251,13 @@ export function Sidebar({
                 >
                   Explore all
                 </span>
-                <img
-                  src={arrowForward}
-                  alt=""
-                  className={`size-6 object-contain ${dark ? "brightness-0 invert" : ""}`}
-                />
+                <span className="flex size-6 shrink-0 items-center justify-center">
+                  <img
+                    src={arrowForward}
+                    alt=""
+                    className={`h-3.5 w-3.5 ${dark ? "brightness-0 invert" : ""}`}
+                  />
+                </span>
               </button>
             </div>
           </div>
@@ -293,11 +303,13 @@ export function Sidebar({
               >
                 Anastasiia Liuta
               </p>
-              <img
-                src={chevronDownStroke}
-                alt=""
-                className={`size-6 shrink-0 -rotate-90 object-contain ${dark ? "brightness-0 invert" : ""}`}
-              />
+              <span className="flex size-6 shrink-0 items-center justify-center">
+                <img
+                  src={chevronDownStroke}
+                  alt=""
+                  className={`h-[11.2px] w-[6.2px] -rotate-90 ${dark ? "brightness-0 invert" : ""}`}
+                />
+              </span>
             </div>
           </div>
         </div>

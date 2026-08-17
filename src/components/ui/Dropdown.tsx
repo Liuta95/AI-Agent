@@ -35,7 +35,7 @@ export function Dropdown({
         <select
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
-          className="min-w-0 flex-1 truncate bg-transparent text-sm font-normal leading-6 text-input-placeholder outline-none"
+          className="min-w-0 flex-1 appearance-none truncate bg-transparent text-sm font-normal leading-6 text-input-placeholder outline-none"
         >
           {placeholder && (
             <option value="" disabled hidden>
@@ -48,7 +48,9 @@ export function Dropdown({
             </option>
           ))}
         </select>
-        <img src={icon} alt="" className="size-6 shrink-0 object-contain" />
+        <span className="flex size-6 shrink-0 items-center justify-center">
+          <img src={icon} alt="" className="h-[6.016px] w-[10.616px]" />
+        </span>
       </span>
     </label>
   );

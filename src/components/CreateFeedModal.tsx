@@ -71,7 +71,9 @@ export function CreateFeedModal({ open, onClose, onCreate }: CreateFeedModalProp
           onClick={onClose}
           className="flex size-9 shrink-0 items-center justify-center gap-1 overflow-clip rounded-2xl"
         >
-          <img src={closeIcon} alt="" className="size-6 object-contain" />
+          <span className="flex size-6 shrink-0 items-center justify-center">
+            <img src={closeIcon} alt="" className="h-2.5 w-2.5" />
+          </span>
         </button>
       </div>
 

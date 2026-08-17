@@ -175,9 +175,9 @@ export function PromptBar({
             type="button"
             aria-label="Add attachment"
             onClick={() => fileInputRef.current?.click()}
-            className="flex shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl"
+            className="flex size-6 shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl"
           >
-            <img src={addIcon} alt="" className="size-6 object-contain" />
+            <img src={addIcon} alt="" className="h-4 w-4" />
           </button>
           <input
             ref={fileInputRef}
@@ -194,27 +194,29 @@ export function PromptBar({
               type="button"
               aria-label="Voice input"
               onClick={onVoiceInput}
-              className="flex shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl"
+              className="flex size-6 shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl"
             >
-              <img src={micIcon} alt="" className="size-6 object-contain" />
+              <img src={micIcon} alt="" className="h-[17.5px] w-3" />
             </button>
             <button
               type="button"
               aria-label="Send message"
               onClick={handleSend}
               disabled={!canSend}
-              className={`flex shrink-0 items-center justify-center overflow-clip rounded-full p-1 disabled:opacity-50 ${
+              className={`flex size-6 shrink-0 items-center justify-center overflow-clip rounded-full p-1 disabled:opacity-50 ${
                 canSend ? (dark ? "bg-[#1f1730]" : "bg-[#f5f2fa]") : ""
               }`}
             >
-              <img src={sendIcon} alt="" className="size-6 object-contain" />
+              <img src={sendIcon} alt="" className="h-[13px] w-[15.423px]" />
             </button>
           </div>
         </div>
       </div>
       {dragging && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center gap-2.5">
-          <img src={downloadIcon} alt="" className="size-6 object-contain" />
+          <span className="flex size-6 shrink-0 items-center justify-center">
+            <img src={downloadIcon} alt="" className="h-3.5 w-3.5" />
+          </span>
           <p className="text-base font-normal leading-normal text-[#6e598e]">Drop your files here.</p>
         </div>
       )}

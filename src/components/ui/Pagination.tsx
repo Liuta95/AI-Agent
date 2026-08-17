@@ -125,7 +125,7 @@ export function PaginationBar({
           <select
             value={pageSize}
             onChange={(e) => onPageSizeChange?.(Number(e.target.value))}
-            className="bg-transparent outline-none"
+            className="appearance-none bg-transparent outline-none"
           >
             {[10, 20, 50, 100].map((size) => (
               <option key={size} value={size}>
@@ -133,7 +133,9 @@ export function PaginationBar({
               </option>
             ))}
           </select>
-          <img src={chevronDownSmallIcon} alt="" className="size-6 object-contain" />
+          <span className="flex size-6 shrink-0 items-center justify-center">
+            <img src={chevronDownSmallIcon} alt="" className="h-[6.016px] w-[10.616px]" />
+          </span>
         </label>
       </div>
     </div>
