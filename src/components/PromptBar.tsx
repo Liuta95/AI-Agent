@@ -1,9 +1,15 @@
-import { useRef, useState, type DragEvent, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type DragEvent, type KeyboardEvent } from "react";
 import addIcon from "../assets/icons/add.svg";
 import micIcon from "../assets/icons/mic.svg";
 import sendIcon from "../assets/icons/send.svg";
 import downloadIcon from "../assets/icons/download.svg";
+import publishIcon from "../assets/icons/publish.svg";
+import addPhotoIcon from "../assets/icons/add-photo-alternate.svg";
+import dashboardAddIcon from "../assets/icons/dashboard-add.svg";
+import workIcon from "../assets/icons/work.svg";
+import linkIcon from "../assets/icons/link.svg";
 import { FileChip } from "./ui/FileChip";
+import { PopoverMenu, type PopoverMenuOption } from "./ui/PopoverMenu";
 
 type Attachment = {
   id: string;
@@ -39,10 +45,23 @@ export function PromptBar({
   const [focused, setFocused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [dragging, setDragging] = useState(false);
+  const [addMenuOpen, setAddMenuOpen] = useState(false);
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const dragCounter = useRef(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const addMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!addMenuOpen) return;
+    function handleClickOutside(e: MouseEvent) {
+      if (addMenuRef.current && !addMenuRef.current.contains(e.target as Node)) {
+        setAddMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [addMenuOpen]);
 
   const value = controlledValue ?? internalValue;
   const hasValue = value.trim().length > 0;
@@ -127,6 +146,45 @@ export function PromptBar({
 
   const textColor = hasValue ? (dark ? "text-white" : "text-[#1c1b1f]") : dark ? "text-[#b0b2be]" : "text-input-placeholder";
 
+  const addMenuOptions: PopoverMenuOption[] = [
+    {
+      icon: publishIcon,
+      label: "Upload file",
+      description: "Great for most tasks",
+      onClick: () => {
+        setAddMenuOpen(false);
+        fileInputRef.current?.click();
+      },
+    },
+    {
+      icon: addPhotoIcon,
+      label: "Add image",
+      description: "PNG, JPG, SVG",
+      onClick: () => {
+        setAddMenuOpen(false);
+        fileInputRef.current?.click();
+      },
+    },
+    {
+      icon: dashboardAddIcon,
+      label: "Create from template",
+      description: "Start with a preset structure",
+      onClick: () => setAddMenuOpen(false),
+    },
+    {
+      icon: workIcon,
+      label: "Start new project",
+      description: "Organise into a project",
+      onClick: () => setAddMenuOpen(false),
+    },
+    {
+      icon: linkIcon,
+      label: "Connect tool",
+      description: "Browse integrations",
+      onClick: () => setAddMenuOpen(false),
+    },
+  ];
+
   return (
     <div
       className={
@@ -171,14 +229,21 @@ export function PromptBar({
           />
         </div>
         <div className="flex w-full shrink-0 items-center justify-between py-2 pl-5 pr-6">
-          <button
-            type="button"
-            aria-label="Add attachment"
-            onClick={() => fileInputRef.current?.click()}
-            className="flex size-6 shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl"
-          >
-            <img src={addIcon} alt="" className="h-4 w-4" />
-          </button>
+          <div ref={addMenuRef} className="relative">
+            <button
+              type="button"
+              aria-label="Add attachment"
+              onClick={() => setAddMenuOpen((prev) => !prev)}
+              className="flex size-6 shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl"
+            >
+              <img src={addIcon} alt="" className="h-4 w-4" />
+            </button>
+            {addMenuOpen && (
+              <div className="absolute bottom-full left-0 z-30 mb-2">
+                <PopoverMenu options={addMenuOptions} dark={dark} />
+              </div>
+            )}
+          </div>
           <input
             ref={fileInputRef}
             type="file"
