@@ -80,7 +80,7 @@ export function Sidebar({
     return (
       <div className="flex h-full w-[76px] shrink-0 flex-col items-center overflow-clip rounded-xl py-3">
         <div
-          className={`flex min-h-0 w-16 flex-1 flex-col items-center gap-6 overflow-y-auto rounded-xl p-3 ${
+          className={`scrollbar-thin flex min-h-0 w-16 flex-1 flex-col items-center gap-6 overflow-y-auto rounded-xl p-3 ${
             dark ? "bg-[#1f1730]" : "bg-brand-tint"
           }`}
         >
@@ -242,7 +242,7 @@ export function Sidebar({
 
         <Divider />
 
-        <div className="flex min-h-0 w-full flex-1 flex-col items-start gap-2 overflow-y-auto overflow-x-clip">
+        <div className="scrollbar-thin flex min-h-0 w-full flex-1 flex-col items-start gap-2 overflow-y-auto overflow-x-clip">
           <div className="flex w-full shrink-0 flex-col items-start gap-1">
             <TopicHeader title="Tools" dark={dark} />
             <div className="flex w-full flex-col items-start">

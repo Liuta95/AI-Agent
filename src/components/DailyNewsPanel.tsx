@@ -44,7 +44,7 @@ export function DailyNewsPanel({ onOpenFeed, onViewAll, className }: DailyNewsPa
     <div
       className={
         className ||
-        "flex h-full w-72 shrink-0 flex-col items-center gap-4 overflow-y-auto border-l border-input-border p-6"
+        "scrollbar-thin flex h-full w-72 shrink-0 flex-col items-center gap-4 overflow-y-auto border-l border-input-border p-6"
       }
     >
       {feeds.map((feed, i) => (
