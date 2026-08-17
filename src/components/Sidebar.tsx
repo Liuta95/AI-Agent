@@ -134,7 +134,9 @@ export function Sidebar({
                         : "hover:bg-black/[0.05]"
                     }`}
                   >
-                    <img src={item.icon} alt="" className={`size-6 ${dark ? "brightness-0 invert" : ""} object-contain`} />
+                    <span className="flex size-6 shrink-0 items-center justify-center">
+                      <img src={item.icon} alt="" className={`h-4 w-4 object-contain ${dark ? "brightness-0 invert" : ""}`} />
+                    </span>
                   </button>
                 );
               })}

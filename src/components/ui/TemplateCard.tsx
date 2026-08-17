@@ -40,7 +40,9 @@ export function TemplateCard({
           onClick={onPreview}
           className="flex shrink-0 items-center gap-1 overflow-clip rounded-3xl px-2 py-1"
         >
-          <img src={visibilityIcon} alt="" className="size-6 object-contain" />
+          <span className="flex size-6 shrink-0 items-center justify-center">
+            <img src={visibilityIcon} alt="" className="h-[13px] w-[19.846px]" />
+          </span>
           <span className="text-center text-xs font-semibold leading-6 text-secondary-text">Preview</span>
         </button>
       </div>

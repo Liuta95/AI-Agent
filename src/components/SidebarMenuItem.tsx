@@ -28,7 +28,9 @@ export function SidebarMenuItem({ icon, label, state = "default", dark = false, 
       }`}
     >
       <div className="flex min-w-0 flex-1 items-center gap-2">
-        <img src={icon} alt="" className={`size-6 shrink-0 ${dark ? "brightness-0 invert" : ""} object-contain`} />
+        <span className="flex size-6 shrink-0 items-center justify-center">
+          <img src={icon} alt="" className={`h-4 w-4 object-contain ${dark ? "brightness-0 invert" : ""}`} />
+        </span>
         <p
           className={`min-w-0 flex-1 truncate text-sm font-normal leading-6 ${
             dark ? "text-[#c4a1ff]" : "text-secondary-text"

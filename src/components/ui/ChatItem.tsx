@@ -67,25 +67,25 @@ export function ChatActions({
   return (
     <div className={className || "flex h-6 w-[680px] items-center justify-between"}>
       <div className="flex items-center gap-2">
-        <button type="button" aria-label="Copy" onClick={onCopy} className="size-6 shrink-0">
-          <img src={copyIcon} alt="" className="size-6 object-contain" />
+        <button type="button" aria-label="Copy" onClick={onCopy} className="flex size-6 shrink-0 items-center justify-center">
+          <img src={copyIcon} alt="" className="h-[17px] w-3.5" />
         </button>
-        <button type="button" aria-label="Regenerate" onClick={onRegenerate} className="size-6 shrink-0">
-          <img src={autorenewIcon} alt="" className="size-6 object-contain" />
+        <button type="button" aria-label="Regenerate" onClick={onRegenerate} className="flex size-6 shrink-0 items-center justify-center">
+          <img src={autorenewIcon} alt="" className="h-3.5 w-3.5" />
         </button>
-        <button type="button" aria-label="Download" onClick={onDownload} className="size-6 shrink-0">
-          <img src={downloadIcon} alt="" className="size-6 object-contain" />
+        <button type="button" aria-label="Download" onClick={onDownload} className="flex size-6 shrink-0 items-center justify-center">
+          <img src={downloadIcon} alt="" className="h-3.5 w-3.5" />
         </button>
-        <button type="button" aria-label="Read aloud" onClick={onReadAloud} className="size-6 shrink-0">
-          <img src={volumeUpIcon} alt="" className="size-6 object-contain" />
+        <button type="button" aria-label="Read aloud" onClick={onReadAloud} className="flex size-6 shrink-0 items-center justify-center">
+          <img src={volumeUpIcon} alt="" className="h-[15.0385px] w-[15.3845px]" />
         </button>
       </div>
       <div className="flex items-center gap-2">
-        <button type="button" aria-label="Good response" onClick={onThumbUp} className="size-6 shrink-0">
-          <img src={thumbUpIcon} alt="" className="size-6 object-contain" />
+        <button type="button" aria-label="Good response" onClick={onThumbUp} className="flex size-6 shrink-0 items-center justify-center">
+          <img src={thumbUpIcon} alt="" className="h-[17.1923px] w-[19px]" />
         </button>
-        <button type="button" aria-label="Bad response" onClick={onThumbDown} className="size-6 shrink-0">
-          <img src={thumbDownIcon} alt="" className="size-6 object-contain" />
+        <button type="button" aria-label="Bad response" onClick={onThumbDown} className="flex size-6 shrink-0 items-center justify-center">
+          <img src={thumbDownIcon} alt="" className="h-[17.1923px] w-[19px]" />
         </button>
       </div>
     </div>
@@ -100,7 +100,9 @@ export function RelatedItems({ items }: RelatedItemsProps) {
   return (
     <div className="flex w-[680px] flex-col items-start gap-4">
       <div className="flex w-[680px] items-center gap-1">
-        <img src={keyboardArrowUpIcon} alt="" className="size-6 object-contain" />
+        <span className="flex size-6 shrink-0 items-center justify-center">
+          <img src={keyboardArrowUpIcon} alt="" className="h-[6.0155px] w-[10.6155px]" />
+        </span>
         <p className="text-xs font-semibold leading-4 text-[#62606e]">Search related topics</p>
       </div>
       <div className="flex w-[680px] flex-col items-start gap-2">
@@ -111,7 +113,9 @@ export function RelatedItems({ items }: RelatedItemsProps) {
             </div>
             <div className="flex h-6 items-center gap-1 rounded-lg bg-[#f5f2fa] py-2 pl-1.5 pr-1">
               <p className="whitespace-nowrap text-sm font-normal leading-6 text-text-primary">{item}</p>
-              <img src={openInNewIcon} alt="" className="size-4 object-contain" />
+              <span className="flex size-4 shrink-0 items-center justify-center">
+                <img src={openInNewIcon} alt="" className="h-[10.6667px] w-[10.6667px]" />
+              </span>
             </div>
           </div>
         ))}
@@ -130,7 +134,9 @@ export function References({ items, defaultOpen = true }: ReferencesProps) {
     <details open={defaultOpen} className="w-full">
       <summary className="flex w-full cursor-pointer list-none items-center gap-1">
         <p className="text-xs font-semibold leading-normal text-[#61647a]">References</p>
-        <img src={chevronDownStroke} alt="" className="size-6 object-contain" />
+        <span className="flex size-6 shrink-0 items-center justify-center">
+          <img src={chevronDownStroke} alt="" className="h-[11.2px] w-[6.2px] -rotate-90" />
+        </span>
       </summary>
       <div className="mt-2 flex w-full flex-col items-start gap-2">
         {items.map((item, i) => (
@@ -139,7 +145,9 @@ export function References({ items, defaultOpen = true }: ReferencesProps) {
               <p className="text-xs font-semibold leading-4 text-[#62606e]">{i + 1}</p>
             </div>
             <div className="flex h-6 items-center gap-1 rounded-lg bg-[#f5f2fa] py-2 pl-1.5 pr-1">
-              <img src={docSmallIcon} alt="" className="size-4 object-contain" />
+              <span className="flex size-4 shrink-0 items-center justify-center">
+                <img src={docSmallIcon} alt="" className="h-3 w-[9.33px]" />
+              </span>
               <p className="whitespace-nowrap text-sm font-normal leading-6 text-text-primary">{item}</p>
             </div>
           </div>

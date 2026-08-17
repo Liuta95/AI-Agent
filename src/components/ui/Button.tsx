@@ -30,7 +30,11 @@ export function Button({ children, icon, variant = "primary", type = "button", d
       }
     >
       {children}
-      {icon && <img src={icon} alt="" className={`size-6 object-contain ${variant === "primary" ? "brightness-0 invert" : ""}`} />}
+      {icon && (
+        <span className="flex size-6 shrink-0 items-center justify-center">
+          <img src={icon} alt="" className={`h-4 w-4 object-contain ${variant === "primary" ? "brightness-0 invert" : ""}`} />
+        </span>
+      )}
     </button>
   );
 }

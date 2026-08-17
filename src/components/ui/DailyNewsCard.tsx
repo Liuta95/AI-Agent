@@ -73,7 +73,9 @@ export function DailyNewsCard({
       </div>
       <div className="flex h-14 w-full items-center justify-between border-t border-input-border px-4">
         <div className="flex items-center gap-2">
-          <img src={calendarIcon} alt="" className="size-6 object-contain" />
+          <span className="flex size-6 shrink-0 items-center justify-center">
+            <img src={calendarIcon} alt="" className="h-4 w-3.5" />
+          </span>
           <p className="text-sm font-normal leading-6 text-text-secondary">{nextRun}</p>
         </div>
         <div className="flex items-center gap-2.5">
@@ -83,7 +85,9 @@ export function DailyNewsCard({
             onClick={onPause}
             className="flex w-9 shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl border border-secondary-border px-2 py-1.5"
           >
-            <img src={pauseIcon} alt="" className="size-6 object-contain" />
+            <span className="flex size-6 shrink-0 items-center justify-center">
+              <img src={pauseIcon} alt="" className="h-3 w-3" />
+            </span>
           </button>
           <button
             type="button"
@@ -91,7 +95,9 @@ export function DailyNewsCard({
             onClick={onEdit}
             className="flex w-9 shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl border border-secondary-border px-2 py-1.5"
           >
-            <img src={editIcon} alt="" className="size-6 object-contain" />
+            <span className="flex size-6 shrink-0 items-center justify-center">
+              <img src={editIcon} alt="" className="h-[17.85px] w-[17.81px]" />
+            </span>
           </button>
           <button
             type="button"
@@ -99,7 +105,9 @@ export function DailyNewsCard({
             onClick={onMore}
             className="flex w-9 shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl border border-secondary-border px-2 py-1.5"
           >
-            <img src={moreIcon} alt="" className="size-6 object-contain" />
+            <span className="flex size-6 shrink-0 items-center justify-center">
+              <img src={moreIcon} alt="" className="h-0.5 w-[13.077px]" />
+            </span>
           </button>
         </div>
       </div>

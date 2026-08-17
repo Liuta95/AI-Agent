@@ -18,11 +18,13 @@ export function SuggestionCard({ icon, label, state = "default" }: SuggestionCar
       type="button"
       className={`flex shrink-0 items-center justify-center gap-2 overflow-clip rounded-2xl px-4 py-2 ${STATE_CLASSES[state]}`}
     >
-      <img
-        src={icon}
-        alt=""
-        className={`size-6 object-contain ${state === "selected" ? "brightness-[0.6]" : ""}`}
-      />
+      <span className="flex size-6 shrink-0 items-center justify-center">
+        <img
+          src={icon}
+          alt=""
+          className={`h-[18px] w-[18px] object-contain ${state === "selected" ? "brightness-[0.6]" : ""}`}
+        />
+      </span>
       <span
         className={`whitespace-nowrap text-center text-base font-normal leading-6 ${
           state === "selected" ? "text-secondary-text" : "text-text-primary"

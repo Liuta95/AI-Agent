@@ -40,7 +40,9 @@ function IconButton({ icon, label, onClick, disabled }: IconButtonProps) {
       disabled={disabled}
       className="flex shrink-0 items-center gap-1 overflow-clip rounded-3xl p-1 disabled:opacity-40"
     >
-      <img src={icon} alt="" className="size-6 object-contain" />
+      <span className="flex size-6 shrink-0 items-center justify-center">
+        <img src={icon} alt="" className="h-3 w-3 object-contain" />
+      </span>
     </button>
   );
 }

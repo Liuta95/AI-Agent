@@ -68,11 +68,9 @@ export function MenuItem({
       className={className || `${rowClass(disabled, dark)} text-left`}
     >
       {icon && (
-        <img
-          src={icon}
-          alt=""
-          className={`size-6 shrink-0 object-contain ${dark ? "brightness-0 invert" : ""}`}
-        />
+        <span className="flex size-6 shrink-0 items-center justify-center">
+          <img src={icon} alt="" className={`h-[18px] w-[18px] object-contain ${dark ? "brightness-0 invert" : ""}`} />
+        </span>
       )}
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span

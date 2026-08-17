@@ -43,7 +43,9 @@ export function Alert({
         boxShadow: shadow ? "0px 6px 6px 0px rgba(150,176,202,0.44)" : undefined,
       }}
     >
-      <img src={styles.icon} alt="" className="size-6 shrink-0 object-contain" />
+      <span className="flex size-6 shrink-0 items-center justify-center">
+        <img src={styles.icon} alt="" className="h-[18px] w-[18px] object-contain" />
+      </span>
       <div className="flex min-w-0 flex-1 flex-col items-start justify-center gap-2">
         <p className="w-full text-sm font-normal leading-6 text-text-primary">{message}</p>
         {buttonLabel && (
@@ -56,8 +58,13 @@ export function Alert({
           </button>
         )}
       </div>
-      <button type="button" aria-label="Dismiss" onClick={onClose} className="size-6 shrink-0">
-        <img src={closeIcon} alt="" className="size-full object-contain" />
+      <button
+        type="button"
+        aria-label="Dismiss"
+        onClick={onClose}
+        className="flex size-6 shrink-0 items-center justify-center"
+      >
+        <img src={closeIcon} alt="" className="h-2.5 w-2.5" />
       </button>
     </div>
   );

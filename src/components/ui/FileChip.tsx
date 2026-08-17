@@ -52,16 +52,24 @@ export function FileChip({
         `flex w-fit shrink-0 items-center gap-1.5 overflow-clip rounded-lg border px-2 py-1 ${stateClasses(state, dark)}`
       }
     >
-      {uploading ? (
-        <img src={loaderIcon} alt="" className="size-6 shrink-0 animate-spin object-contain" />
-      ) : kind === "picture" ? (
-        <img src={pictureIcon} alt="" className="size-6 shrink-0 object-contain" />
-      ) : (
-        <img src={disabled ? docIconDisabled : docIcon} alt="" className="size-6 shrink-0 rounded object-contain" />
-      )}
+      <span className="flex size-6 shrink-0 items-center justify-center">
+        {uploading ? (
+          <img src={loaderIcon} alt="" className="h-4 w-4 animate-spin" />
+        ) : kind === "picture" ? (
+          <img src={pictureIcon} alt="" className="h-[13px] w-[15.423px]" />
+        ) : (
+          <img src={disabled ? docIconDisabled : docIcon} alt="" className="h-4 w-[15px] rounded" />
+        )}
+      </span>
       <p className={`whitespace-nowrap text-xs font-normal leading-4 ${textColor}`}>{fileName}</p>
-      <button type="button" aria-label="Remove file" onClick={onRemove} disabled={disabled} className="size-6 shrink-0">
-        <img src={closeIcon} alt="" className="size-full object-contain" />
+      <button
+        type="button"
+        aria-label="Remove file"
+        onClick={onRemove}
+        disabled={disabled}
+        className="flex size-6 shrink-0 items-center justify-center"
+      >
+        <img src={closeIcon} alt="" className="h-2.5 w-2.5" />
       </button>
     </div>
   );

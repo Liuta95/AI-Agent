@@ -32,12 +32,16 @@ export function Textarea({ label, required, value, onChange, placeholder, onAiAs
             type="button"
             aria-label="AI assist"
             onClick={onAiAssist}
-            className="absolute right-1.5 top-1.5 size-6"
+            className="absolute right-1.5 top-1.5 flex size-6 items-center justify-center"
           >
-            <img src={wandIcon} alt="" className="size-6 object-contain" />
+            <img src={wandIcon} alt="" className="h-[17px] w-[17px]" />
           </button>
         )}
-        <img src={resizeIcon} alt="" className="pointer-events-none absolute bottom-1.5 right-1.5 size-4 object-contain" />
+        <img
+          src={resizeIcon}
+          alt=""
+          className="pointer-events-none absolute bottom-1.5 right-1.5 h-[10.667px] w-[10.667px]"
+        />
       </div>
     </label>
   );
