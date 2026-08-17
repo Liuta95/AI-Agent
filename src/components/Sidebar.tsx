@@ -78,73 +78,75 @@ export function Sidebar({
 
   if (collapsed) {
     return (
-      <div className="flex h-full w-[76px] shrink-0 flex-col items-center overflow-clip rounded-xl py-3">
+      <div className="flex h-full w-[76px] shrink-0 flex-col items-center py-3">
         <div
-          className={`scrollbar-thin flex min-h-0 w-16 flex-1 flex-col items-center gap-6 overflow-y-auto rounded-xl p-3 ${
+          className={`flex min-h-0 w-16 flex-1 flex-col items-center overflow-clip rounded-xl p-3 ${
             dark ? "bg-[#1f1730]" : "bg-brand-tint"
           }`}
         >
-          <button type="button" aria-label="Home" onClick={onNavigateHome} className="size-8 shrink-0">
-            <img src={logo} alt="AI Agent logo" className="size-8 object-contain" />
-          </button>
-          <button
-            type="button"
-            aria-label="Expand sidebar"
-            onClick={() => setCollapsed(false)}
-            className="flex size-6 shrink-0 items-center justify-center"
-          >
-            <img src={rightPanelOpen} alt="" className={`h-4 w-4 ${dark ? "brightness-0 invert" : ""}`} />
-          </button>
-          <button
-            type="button"
-            aria-label="New chat"
-            onClick={onNavigateHome}
-            className={`flex size-9 shrink-0 items-center justify-center rounded-full border ${
-              dark ? "border-[#9747ff]" : "border-secondary-border"
-            }`}
-          >
-            <span className="flex size-6 shrink-0 items-center justify-center">
-              <img src={addAlt} alt="" className={`h-4 w-4 ${dark ? "brightness-0 invert" : ""}`} />
-            </span>
-          </button>
-          <button
-            type="button"
-            aria-label="Search chats"
-            className={`flex size-9 shrink-0 items-center justify-center rounded-full ${
-              dark ? "bg-[#2e2b33]" : "bg-white"
-            }`}
-          >
-            <img src={search} alt="" className={`size-4 ${dark ? "brightness-0 invert" : ""} object-contain`} />
-          </button>
-          {collapsedIconGroups.map((group, i) => (
-            <div key={i} className="flex w-full flex-col items-center gap-2 border-t border-white/20 pt-3">
-              {group.map((item, j) => {
-                const isActive = item.label === "Daily news" && activeView === "daily-news";
-                return (
-                  <button
-                    key={`${item.label}-${j}`}
-                    type="button"
-                    aria-label={item.label}
-                    onClick={item.label === "Daily news" ? onNavigateDailyNews : undefined}
-                    className={`flex size-9 shrink-0 items-center justify-center rounded-full ${
-                      isActive
-                        ? dark
-                          ? "border border-white/20 bg-white/10"
-                          : "border border-[#d1c4e6] bg-[#edecff]"
-                        : "hover:bg-black/[0.05]"
-                    }`}
-                  >
-                    <span className="flex size-6 shrink-0 items-center justify-center">
-                      <img src={item.icon} alt="" className={`h-4 w-4 object-contain ${dark ? "brightness-0 invert" : ""}`} />
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          ))}
-        </div>
-        <div className="flex w-full flex-col items-center gap-2 border-t border-white/20 pt-2">
-          <img src={avatar} alt="" className="size-9 shrink-0 rounded-full object-cover" />
+          <div className="scrollbar-thin flex min-h-0 w-full flex-1 flex-col items-center gap-6 overflow-y-auto">
+            <button type="button" aria-label="Home" onClick={onNavigateHome} className="size-8 shrink-0">
+              <img src={logo} alt="AI Agent logo" className="size-8 object-contain" />
+            </button>
+            <button
+              type="button"
+              aria-label="Expand sidebar"
+              onClick={() => setCollapsed(false)}
+              className="flex size-6 shrink-0 items-center justify-center"
+            >
+              <img src={rightPanelOpen} alt="" className={`h-4 w-4 ${dark ? "brightness-0 invert" : ""}`} />
+            </button>
+            <button
+              type="button"
+              aria-label="New chat"
+              onClick={onNavigateHome}
+              className={`flex size-9 shrink-0 items-center justify-center rounded-full border ${
+                dark ? "border-[#9747ff]" : "border-secondary-border"
+              }`}
+            >
+              <span className="flex size-6 shrink-0 items-center justify-center">
+                <img src={addAlt} alt="" className={`h-4 w-4 ${dark ? "brightness-0 invert" : ""}`} />
+              </span>
+            </button>
+            <button
+              type="button"
+              aria-label="Search chats"
+              className={`flex size-9 shrink-0 items-center justify-center rounded-full ${
+                dark ? "bg-[#2e2b33]" : "bg-white"
+              }`}
+            >
+              <img src={search} alt="" className={`size-4 ${dark ? "brightness-0 invert" : ""} object-contain`} />
+            </button>
+            {collapsedIconGroups.map((group, i) => (
+              <div key={i} className="flex w-full flex-col items-center gap-2 border-t border-white/20 pt-3">
+                {group.map((item, j) => {
+                  const isActive = item.label === "Daily news" && activeView === "daily-news";
+                  return (
+                    <button
+                      key={`${item.label}-${j}`}
+                      type="button"
+                      aria-label={item.label}
+                      onClick={item.label === "Daily news" ? onNavigateDailyNews : undefined}
+                      className={`flex size-9 shrink-0 items-center justify-center rounded-full ${
+                        isActive
+                          ? dark
+                            ? "border border-white/20 bg-white/10"
+                            : "border border-[#d1c4e6] bg-[#edecff]"
+                          : "hover:bg-black/[0.05]"
+                      }`}
+                    >
+                      <span className="flex size-6 shrink-0 items-center justify-center">
+                        <img src={item.icon} alt="" className={`h-4 w-4 object-contain ${dark ? "brightness-0 invert" : ""}`} />
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+          <div className="flex w-full shrink-0 flex-col items-center gap-2 border-t border-white/20 pt-2">
+            <img src={avatar} alt="" className="size-9 shrink-0 rounded-full object-cover" />
+          </div>
         </div>
       </div>
     );
