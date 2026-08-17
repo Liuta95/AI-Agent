@@ -62,11 +62,12 @@ type SidebarProps = {
 
 export function Sidebar({
   dark = false,
-  collapsed = false,
+  collapsed: initialCollapsed = false,
   activeView = "home",
   onNavigateHome,
   onNavigateDailyNews,
 }: SidebarProps) {
+  const [collapsed, setCollapsed] = useState(initialCollapsed);
   const [searchValue, setSearchValue] = useState("");
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -86,7 +87,12 @@ export function Sidebar({
           <button type="button" aria-label="Home" onClick={onNavigateHome} className="size-8 shrink-0">
             <img src={logo} alt="AI Agent logo" className="size-8 object-contain" />
           </button>
-          <button type="button" aria-label="Expand sidebar" className="flex size-6 shrink-0 items-center justify-center">
+          <button
+            type="button"
+            aria-label="Expand sidebar"
+            onClick={() => setCollapsed(false)}
+            className="flex size-6 shrink-0 items-center justify-center"
+          >
             <img src={rightPanelOpen} alt="" className={`h-4 w-4 ${dark ? "brightness-0 invert" : ""}`} />
           </button>
           <button
@@ -163,6 +169,7 @@ export function Sidebar({
           <button
             type="button"
             aria-label="Collapse sidebar"
+            onClick={() => setCollapsed(true)}
             className="flex size-6 shrink-0 items-center justify-center"
           >
             <img
