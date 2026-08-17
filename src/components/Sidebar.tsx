@@ -52,20 +52,28 @@ const collapsedIconGroups: { icon: string; label: string }[][] = [
 
 type SidebarView = "home" | "daily-news";
 
+type SidebarChat = { id: string; title: string };
+
 type SidebarProps = {
   dark?: boolean;
   collapsed?: boolean;
   activeView?: SidebarView;
+  extraChats?: SidebarChat[];
+  activeChatId?: string | null;
   onNavigateHome?: () => void;
   onNavigateDailyNews?: () => void;
+  onSelectChat?: (id: string) => void;
 };
 
 export function Sidebar({
   dark = false,
   collapsed: initialCollapsed = false,
   activeView = "home",
+  extraChats = [],
+  activeChatId = null,
   onNavigateHome,
   onNavigateDailyNews,
+  onSelectChat,
 }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(initialCollapsed);
   const [searchValue, setSearchValue] = useState("");
@@ -293,6 +301,16 @@ export function Sidebar({
           <div className="flex w-full shrink-0 flex-col items-start gap-1 overflow-clip">
             <TopicHeader title="Chats" dark={dark} />
             <div className="flex w-full flex-col items-start">
+              {extraChats.map((chat) => (
+                <SidebarMenuItem
+                  key={chat.id}
+                  icon={chatBubble}
+                  label={chat.title}
+                  dark={dark}
+                  state={chat.id === activeChatId ? "selected" : "default"}
+                  onClick={() => onSelectChat?.(chat.id)}
+                />
+              ))}
               {chats.map((chat, i) => (
                 <SidebarMenuItem key={`${chat.label}-${i}`} icon={chat.icon} label={chat.label} dark={dark} />
               ))}

@@ -14,7 +14,7 @@ type ChatTextProps = {
   heading?: string;
   body?: string;
   subheading?: string;
-  bullets?: { term: string; text: string }[];
+  bullets?: { term?: string; text: string }[];
   children?: ReactNode;
 };
 
@@ -32,9 +32,9 @@ export function ChatText({ heading, body, subheading, bullets, children }: ChatT
       )}
       {bullets && bullets.length > 0 && (
         <ul className="w-full list-disc pl-6 text-text-primary">
-          {bullets.map((b) => (
-            <li key={b.term} className="text-sm leading-6">
-              <span className="font-semibold">{b.term}: </span>
+          {bullets.map((b, i) => (
+            <li key={i} className="text-sm leading-6">
+              {b.term && <span className="font-semibold">{b.term}: </span>}
               <span className="font-normal">{b.text}</span>
             </li>
           ))}

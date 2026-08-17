@@ -13,7 +13,11 @@ const suggestions = [
   { icon: starsIcon, label: "Write a usability test script for our latest workflow" },
 ];
 
-export function HomePage() {
+type HomePageProps = {
+  onSend?: (query: string) => void;
+};
+
+export function HomePage({ onSend }: HomePageProps) {
   return (
     <div className="flex h-full min-w-0 flex-1 flex-col items-center justify-center pb-3">
       <div className="flex w-[728px] shrink-0 flex-col items-start justify-center gap-8 pt-16">
@@ -26,10 +30,15 @@ export function HomePage() {
           </p>
         </div>
         <div className="flex w-full shrink-0 flex-col items-start gap-3">
-          <PromptBar />
+          <PromptBar onSend={(value) => onSend?.(value)} />
           <div className="flex w-full shrink-0 flex-wrap items-start gap-2">
             {suggestions.map((s, i) => (
-              <SuggestionCard key={`${s.label}-${i}`} icon={s.icon} label={s.label} />
+              <SuggestionCard
+                key={`${s.label}-${i}`}
+                icon={s.icon}
+                label={s.label}
+                onClick={() => onSend?.(s.label)}
+              />
             ))}
           </div>
         </div>

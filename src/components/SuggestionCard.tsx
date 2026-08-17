@@ -4,6 +4,7 @@ type SuggestionCardProps = {
   icon: string;
   label: string;
   state?: SuggestionCardState;
+  onClick?: () => void;
 };
 
 const STATE_CLASSES: Record<SuggestionCardState, string> = {
@@ -12,10 +13,11 @@ const STATE_CLASSES: Record<SuggestionCardState, string> = {
   selected: "border border-secondary-border bg-[#f5f2fa]",
 };
 
-export function SuggestionCard({ icon, label, state = "default" }: SuggestionCardProps) {
+export function SuggestionCard({ icon, label, state = "default", onClick }: SuggestionCardProps) {
   return (
     <button
       type="button"
+      onClick={onClick}
       className={`flex shrink-0 items-center justify-center gap-2 overflow-clip rounded-2xl px-4 py-2 ${STATE_CLASSES[state]}`}
     >
       <span className="flex size-6 shrink-0 items-center justify-center">
