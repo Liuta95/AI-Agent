@@ -14,7 +14,10 @@ import { PopoverMenu, type PopoverMenuOption } from "./ui/PopoverMenu";
 type Attachment = {
   id: string;
   file: File;
+  uploading: boolean;
 };
+
+const UPLOAD_SIMULATION_MS = 1200;
 
 type PromptBarProps = {
   value?: string;
@@ -66,7 +69,8 @@ export function PromptBar({
   const value = controlledValue ?? internalValue;
   const hasValue = value.trim().length > 0;
   const hasAttachments = attachments.length > 0;
-  const canSend = hasValue || hasAttachments;
+  const isUploading = attachments.some((a) => a.uploading);
+  const canSend = (hasValue || hasAttachments) && !isUploading;
 
   function setValue(next: string) {
     if (controlledValue === undefined) setInternalValue(next);
@@ -81,8 +85,19 @@ export function PromptBar({
   }
 
   function addFiles(files: FileList | File[]) {
-    const next = Array.from(files).map((file) => ({ id: `${file.name}-${file.size}-${Date.now()}`, file }));
+    const next = Array.from(files).map((file) => ({
+      id: `${file.name}-${file.size}-${Date.now()}-${Math.random()}`,
+      file,
+      uploading: true,
+    }));
     setAttachments((prev) => [...prev, ...next]);
+    for (const attachment of next) {
+      setTimeout(() => {
+        setAttachments((prev) =>
+          prev.map((a) => (a.id === attachment.id ? { ...a, uploading: false } : a)),
+        );
+      }, UPLOAD_SIMULATION_MS);
+    }
   }
 
   function removeAttachment(id: string) {
@@ -205,6 +220,7 @@ export function PromptBar({
               <FileChip
                 key={a.id}
                 fileName={a.file.name}
+                state={a.uploading ? "uploading" : "default"}
                 kind={fileKind(a.file)}
                 dark={dark}
                 onRemove={() => removeAttachment(a.id)}
