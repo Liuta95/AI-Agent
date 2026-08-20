@@ -10,6 +10,7 @@ type DropdownProps = {
   onChange?: (value: string) => void;
   placeholder?: string;
   icon?: string;
+  dark?: boolean;
   className?: string;
 };
 
@@ -21,21 +22,28 @@ export function Dropdown({
   onChange,
   placeholder,
   icon = chevronDownSmallIcon,
+  dark = false,
   className,
 }: DropdownProps) {
   return (
     <label className={className || "flex w-full flex-col items-start gap-2"}>
       {label && (
-        <span className="flex items-start gap-1 text-xs font-semibold leading-4 text-[#1c1b1f]">
+        <span className={`flex items-start gap-1 text-xs font-semibold leading-4 ${dark ? "text-white" : "text-[#1c1b1f]"}`}>
           {label}
           {required && <span className="text-[#dd524c]">*</span>}
         </span>
       )}
-      <span className="flex w-full items-center gap-1 rounded-3xl border border-input-border bg-white py-1.5 pl-3 pr-2">
+      <span
+        className={`flex w-full items-center gap-1 rounded-3xl border py-1.5 pl-3 pr-2 ${
+          dark ? "border-[#62606e] bg-[#2e2b33]" : "border-input-border bg-white"
+        }`}
+      >
         <select
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
-          className="min-w-0 flex-1 appearance-none truncate bg-transparent text-sm font-normal leading-6 text-input-placeholder outline-none"
+          className={`min-w-0 flex-1 appearance-none truncate bg-transparent text-sm font-normal leading-6 outline-none ${
+            dark ? "text-[#b0b2be]" : "text-input-placeholder"
+          }`}
         >
           {placeholder && (
             <option value="" disabled hidden>
@@ -49,7 +57,7 @@ export function Dropdown({
           ))}
         </select>
         <span className="flex size-6 shrink-0 items-center justify-center">
-          <img src={icon} alt="" className="h-[6.016px] w-[10.616px]" />
+          <img src={icon} alt="" className={`h-[6.016px] w-[10.616px] ${dark ? "brightness-0 invert" : ""}`} />
         </span>
       </span>
     </label>

@@ -18,6 +18,7 @@ import { Divider } from "./Divider";
 import { SidebarMenuItem } from "./SidebarMenuItem";
 import { TopicHeader } from "./TopicHeader";
 import { SearchDropdown } from "./ui/SearchDropdown";
+import { ThemeToggle } from "./ui/ThemeToggle";
 
 const tools = [
   { icon: extension, label: "Text" },
@@ -56,6 +57,7 @@ type SidebarChat = { id: string; title: string };
 
 type SidebarProps = {
   dark?: boolean;
+  onToggleDark?: () => void;
   collapsed?: boolean;
   activeView?: SidebarView;
   extraChats?: SidebarChat[];
@@ -67,6 +69,7 @@ type SidebarProps = {
 
 export function Sidebar({
   dark = false,
+  onToggleDark,
   collapsed: initialCollapsed = false,
   activeView = "home",
   extraChats = [],
@@ -153,6 +156,7 @@ export function Sidebar({
             ))}
           </div>
           <div className="flex w-full shrink-0 flex-col items-center gap-2 border-t border-white/20 pt-2">
+            {onToggleDark && <ThemeToggle dark={dark} onToggle={onToggleDark} />}
             <img src={avatar} alt="" className="size-9 shrink-0 rounded-full object-cover" />
           </div>
         </div>
@@ -250,7 +254,7 @@ export function Sidebar({
           <SidebarMenuItem icon={history} label="History" dark={dark} />
         </div>
 
-        <Divider />
+        <Divider dark={dark} />
 
         <div className="scrollbar-thin flex min-h-0 w-full flex-1 flex-col items-start gap-2 overflow-y-auto overflow-x-clip">
           <div className="flex w-full shrink-0 flex-col items-start gap-1">
@@ -281,7 +285,7 @@ export function Sidebar({
             </div>
           </div>
 
-          <Divider />
+          <Divider dark={dark} />
 
           <div className="flex w-[206px] shrink-0 flex-col items-start gap-1">
             <TopicHeader
@@ -296,7 +300,7 @@ export function Sidebar({
             </div>
           </div>
 
-          <Divider />
+          <Divider dark={dark} />
 
           <div className="flex w-full shrink-0 flex-col items-start gap-1 overflow-clip">
             <TopicHeader title="Chats" dark={dark} />
@@ -319,7 +323,15 @@ export function Sidebar({
         </div>
 
         <div className="flex w-[206px] shrink-0 flex-col items-start gap-1.5">
-          <Divider />
+          <Divider dark={dark} />
+          {onToggleDark && (
+            <div className="flex w-full shrink-0 items-center justify-between rounded-xl px-2 py-1.5">
+              <p className={`text-sm font-normal leading-6 ${dark ? "text-[#c4a1ff]" : "text-secondary-text"}`}>
+                Dark mode
+              </p>
+              <ThemeToggle dark={dark} onToggle={onToggleDark} />
+            </div>
+          )}
           <div className="flex w-full shrink-0 flex-col items-start rounded-xl p-2">
             <div className="flex w-full shrink-0 items-center gap-2">
               <div className="flex shrink-0 items-center overflow-clip rounded-full">

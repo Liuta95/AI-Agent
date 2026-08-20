@@ -101,11 +101,12 @@ const feeds = [
 ];
 
 type DailyNewsPageProps = {
+  dark?: boolean;
   onCreateFeed?: () => void;
   className?: string;
 };
 
-export function DailyNewsPage({ onCreateFeed, className }: DailyNewsPageProps) {
+export function DailyNewsPage({ dark = false, onCreateFeed, className }: DailyNewsPageProps) {
   const [filter, setFilter] = useState(FILTERS[0]);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("recent");
@@ -122,31 +123,39 @@ export function DailyNewsPage({ onCreateFeed, className }: DailyNewsPageProps) {
       <div className="flex w-full max-w-[1180px] flex-col items-center gap-4">
         <div className="flex w-full items-start justify-between pl-[135px]">
           <div className="flex flex-1 flex-col items-center gap-1 text-center">
-            <h1 className="text-[32px] font-semibold leading-[48px] text-text-primary">Daily news</h1>
-            <p className="max-w-[818px] text-sm font-normal leading-6 text-[#6b6a65]">
+            <h1 className={`text-[32px] font-semibold leading-[48px] ${dark ? "text-white" : "text-text-primary"}`}>
+              Daily news
+            </h1>
+            <p className={`max-w-[818px] text-sm font-normal leading-6 ${dark ? "text-[#b0b2be]" : "text-[#6b6a65]"}`}>
               Get automated updates on topics you care about, delivered on your schedule.
             </p>
           </div>
-          <Button icon={addIcon} onClick={onCreateFeed}>
+          <Button icon={addIcon} dark={dark} onClick={onCreateFeed}>
             New feed
           </Button>
         </div>
 
-        <div className="flex w-full items-center gap-1 rounded-3xl border border-input-border bg-white py-1.5 pl-3 pr-2">
-          <img src={searchIcon} alt="" className="size-4 shrink-0 object-contain" />
+        <div
+          className={`flex w-full items-center gap-1 rounded-3xl border py-1.5 pl-3 pr-2 ${
+            dark ? "border-[#62606e] bg-[#2e2b33]" : "border-input-border bg-white"
+          }`}
+        >
+          <img src={searchIcon} alt="" className={`size-4 shrink-0 object-contain ${dark ? "brightness-0 invert" : ""}`} />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search chats"
-            className="min-w-0 flex-1 bg-transparent text-sm font-normal leading-6 text-input-placeholder outline-none placeholder:text-current"
+            className={`min-w-0 flex-1 bg-transparent text-sm font-normal leading-6 outline-none placeholder:text-current ${
+              dark ? "text-[#b0b2be]" : "text-input-placeholder"
+            }`}
           />
         </div>
 
         <div className="flex w-full items-center justify-between">
           <Tabs>
             {FILTERS.map((f) => (
-              <Tab key={f} selected={f === filter} onClick={() => setFilter(f)}>
+              <Tab key={f} selected={f === filter} dark={dark} onClick={() => setFilter(f)}>
                 {f}
               </Tab>
             ))}
@@ -155,6 +164,7 @@ export function DailyNewsPage({ onCreateFeed, className }: DailyNewsPageProps) {
             options={SORT_OPTIONS}
             value={sort}
             onChange={setSort}
+            dark={dark}
             className="flex w-auto shrink-0 flex-col items-start gap-2"
           />
         </div>
@@ -162,7 +172,7 @@ export function DailyNewsPage({ onCreateFeed, className }: DailyNewsPageProps) {
 
       <div className="grid w-full max-w-[1180px] grid-cols-2 gap-4">
         {feeds.map((feed, i) => (
-          <DailyNewsCard key={i} {...feed} />
+          <DailyNewsCard key={i} {...feed} dark={dark} />
         ))}
       </div>
 
@@ -170,9 +180,12 @@ export function DailyNewsPage({ onCreateFeed, className }: DailyNewsPageProps) {
         page={page}
         pageCount={2}
         pageSize={pageSize}
+        dark={dark}
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
-        className="w-full max-w-[1180px] flex-col items-start border-t border-input-border bg-white py-3"
+        className={`w-full max-w-[1180px] flex-col items-start border-t py-3 ${
+          dark ? "border-[#62606e] bg-[#1f1730]" : "border-input-border bg-white"
+        }`}
       />
     </div>
   );

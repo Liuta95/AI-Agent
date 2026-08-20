@@ -4,11 +4,12 @@ import type { ReactNode } from "react";
 type ModalProps = {
   open: boolean;
   onClose?: () => void;
+  dark?: boolean;
   children: ReactNode;
   className?: string;
 };
 
-export function Modal({ open, onClose, children, className }: ModalProps) {
+export function Modal({ open, onClose, dark = false, children, className }: ModalProps) {
   useEffect(() => {
     if (!open) return;
     function handleKeyDown(e: KeyboardEvent) {
@@ -26,7 +27,9 @@ export function Modal({ open, onClose, children, className }: ModalProps) {
         onClick={(e) => e.stopPropagation()}
         className={
           className ||
-          "flex max-h-[90vh] w-[520px] max-w-[90vw] flex-col items-start gap-5 overflow-y-auto rounded-3xl bg-white p-6 shadow-[0px_18px_24px_rgba(0,0,0,0.15)]"
+          `flex max-h-[90vh] w-[520px] max-w-[90vw] flex-col items-start gap-5 overflow-y-auto rounded-3xl p-6 shadow-[0px_18px_24px_rgba(0,0,0,0.15)] ${
+            dark ? "bg-[#1f1730]" : "bg-white"
+          }`
         }
       >
         {children}

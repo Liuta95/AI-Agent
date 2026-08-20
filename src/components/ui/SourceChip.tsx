@@ -4,6 +4,7 @@ type SourceChipProps = {
   index: number;
   label: string;
   state?: SourceChipState;
+  dark?: boolean;
   className?: string;
 };
 
@@ -28,8 +29,29 @@ const STATE_CLASSES: Record<SourceChipState, { chip: string; badge: string; badg
   },
 };
 
-export function SourceChip({ index, label, state = "default", className }: SourceChipProps) {
-  const styles = STATE_CLASSES[state];
+const DARK_STATE_CLASSES: Record<SourceChipState, { chip: string; badge: string; badgeText: string; label: string }> = {
+  default: {
+    chip: "bg-[#2e2b33] border-[#62606e]",
+    badge: "bg-[#1f1730] border-[#62606e]",
+    badgeText: "text-[#b0b2be]",
+    label: "text-[#b0b2be]",
+  },
+  hover: {
+    chip: "bg-[#1f1730] border-[#9747ff]",
+    badge: "bg-[#2e2b33] border-[#9747ff]",
+    badgeText: "text-[#c4a1ff]",
+    label: "text-[#c4a1ff]",
+  },
+  active: {
+    chip: "bg-[#1f1730] border-[#9747ff]",
+    badge: "bg-[#9747ff] border-[#9747ff]",
+    badgeText: "text-white",
+    label: "text-[#c4a1ff]",
+  },
+};
+
+export function SourceChip({ index, label, state = "default", dark = false, className }: SourceChipProps) {
+  const styles = (dark ? DARK_STATE_CLASSES : STATE_CLASSES)[state];
 
   return (
     <div

@@ -34,17 +34,20 @@ const feeds = [
 ];
 
 type DailyNewsPanelProps = {
+  dark?: boolean;
   onOpenFeed?: (title: string) => void;
   onViewAll?: () => void;
   className?: string;
 };
 
-export function DailyNewsPanel({ onOpenFeed, onViewAll, className }: DailyNewsPanelProps) {
+export function DailyNewsPanel({ dark = false, onOpenFeed, onViewAll, className }: DailyNewsPanelProps) {
   return (
     <div
       className={
         className ||
-        "scrollbar-thin flex h-full w-72 shrink-0 flex-col items-center gap-4 overflow-y-auto border-l border-input-border p-6"
+        `scrollbar-thin flex h-full w-72 shrink-0 flex-col items-center gap-4 overflow-y-auto border-l p-6 ${
+          dark ? "border-[#62606e]" : "border-input-border"
+        }`
       }
     >
       {feeds.map((feed, i) => (
@@ -53,6 +56,7 @@ export function DailyNewsPanel({ onOpenFeed, onViewAll, className }: DailyNewsPa
           title={feed.title}
           description={feed.description}
           thumb={feed.thumb}
+          dark={dark}
           onClick={() => onOpenFeed?.(feed.title)}
         />
       ))}
@@ -60,7 +64,9 @@ export function DailyNewsPanel({ onOpenFeed, onViewAll, className }: DailyNewsPa
         <button
           type="button"
           onClick={onViewAll}
-          className="shrink-0 text-center text-xs font-semibold leading-6 text-secondary-text"
+          className={`shrink-0 text-center text-xs font-semibold leading-6 ${
+            dark ? "text-[#c4a1ff]" : "text-secondary-text"
+          }`}
         >
           View all
         </button>

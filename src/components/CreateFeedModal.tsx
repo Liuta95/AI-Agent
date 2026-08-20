@@ -41,11 +41,12 @@ export type NewFeed = {
 
 type CreateFeedModalProps = {
   open: boolean;
+  dark?: boolean;
   onClose?: () => void;
   onCreate?: (feed: NewFeed) => void;
 };
 
-export function CreateFeedModal({ open, onClose, onCreate }: CreateFeedModalProps) {
+export function CreateFeedModal({ open, dark = false, onClose, onCreate }: CreateFeedModalProps) {
   const [name, setName] = useState("");
   const [prompt, setPrompt] = useState("");
   const [category, setCategory] = useState("competitors");
@@ -62,9 +63,11 @@ export function CreateFeedModal({ open, onClose, onCreate }: CreateFeedModalProp
   }
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={onClose} dark={dark}>
       <div className="flex w-full items-center justify-between">
-        <p className="text-xl font-semibold leading-6 text-text-primary">Create new feed</p>
+        <p className={`text-xl font-semibold leading-6 ${dark ? "text-white" : "text-text-primary"}`}>
+          Create new feed
+        </p>
         <button
           type="button"
           aria-label="Close"
@@ -72,7 +75,7 @@ export function CreateFeedModal({ open, onClose, onCreate }: CreateFeedModalProp
           className="flex size-9 shrink-0 items-center justify-center gap-1 overflow-clip rounded-2xl"
         >
           <span className="flex size-6 shrink-0 items-center justify-center">
-            <img src={closeIcon} alt="" className="h-2.5 w-2.5" />
+            <img src={closeIcon} alt="" className={`h-2.5 w-2.5 ${dark ? "brightness-0 invert" : ""}`} />
           </span>
         </button>
       </div>
@@ -84,6 +87,7 @@ export function CreateFeedModal({ open, onClose, onCreate }: CreateFeedModalProp
           value={name}
           onChange={setName}
           placeholder="e.g. Competitor launches"
+          dark={dark}
         />
 
         <Textarea
@@ -93,6 +97,7 @@ export function CreateFeedModal({ open, onClose, onCreate }: CreateFeedModalProp
           onChange={setPrompt}
           placeholder="e.g. Track competitor product launches, pricing changes, and feature announcements in the AI sector"
           onAiAssist={() => {}}
+          dark={dark}
         />
 
         <div className="flex w-full items-start gap-3">
@@ -101,6 +106,7 @@ export function CreateFeedModal({ open, onClose, onCreate }: CreateFeedModalProp
             options={CATEGORIES}
             value={category}
             onChange={setCategory}
+            dark={dark}
             className="flex flex-1 flex-col items-start gap-2"
           />
           <Dropdown
@@ -108,15 +114,22 @@ export function CreateFeedModal({ open, onClose, onCreate }: CreateFeedModalProp
             options={FREQUENCIES}
             value={frequency}
             onChange={setFrequency}
+            dark={dark}
             className="flex flex-1 flex-col items-start gap-2"
           />
         </div>
 
         <div className="flex w-full flex-col items-start gap-2">
-          <p className="text-xs font-bold leading-4 text-[#1c1a16]">Delivery days</p>
+          <p className={`text-xs font-bold leading-4 ${dark ? "text-white" : "text-[#1c1a16]"}`}>Delivery days</p>
           <div className="flex w-full items-start gap-2">
             {DAYS.map((day) => (
-              <Tab key={day} selected={days.includes(day)} onClick={() => toggleDay(day)} className="flex-1">
+              <Tab
+                key={day}
+                selected={days.includes(day)}
+                dark={dark}
+                onClick={() => toggleDay(day)}
+                className="flex-1"
+              >
                 <span className="w-full text-center">{day}</span>
               </Tab>
             ))}
@@ -129,14 +142,15 @@ export function CreateFeedModal({ open, onClose, onCreate }: CreateFeedModalProp
           value={deliveryTime}
           onChange={setDeliveryTime}
           icon={clockIcon}
+          dark={dark}
         />
       </div>
 
       <div className="flex w-full items-center justify-end gap-3">
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="secondary" dark={dark} onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="primary" onClick={handleCreate}>
+        <Button variant="primary" dark={dark} onClick={handleCreate}>
           Create feed
         </Button>
       </div>

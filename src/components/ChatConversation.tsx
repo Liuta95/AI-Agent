@@ -38,13 +38,16 @@ export function ChatConversation({ query, dark = false, className }: ChatConvers
               text: "A component becomes reusable when the stable structure stays the same, while the changing parts are exposed for editing. In React, that usually means props and composition; in Figma, that usually means variants and component properties.",
             },
           ]}
+          dark={dark}
         />
-        <ChatActions className="flex h-6 w-full items-center justify-between" />
+        <ChatActions className="flex h-6 w-full items-center justify-between" dark={dark} />
         <div className="flex w-full flex-col items-start gap-1.5">
-          <p className="text-xs font-semibold leading-4 text-text-secondary">Sources</p>
+          <p className={`text-xs font-semibold leading-4 ${dark ? "text-[#b0b2be]" : "text-text-secondary"}`}>
+            Sources
+          </p>
           <div className="flex w-full flex-wrap items-center gap-2">
             {SOURCES.map((label, i) => (
-              <SourceChip key={i} index={i + 1} label={label} />
+              <SourceChip key={i} index={i + 1} label={label} dark={dark} />
             ))}
           </div>
         </div>

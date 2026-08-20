@@ -15,23 +15,25 @@ type ChatTextProps = {
   body?: string;
   subheading?: string;
   bullets?: { term?: string; text: string }[];
+  dark?: boolean;
   children?: ReactNode;
 };
 
-export function ChatText({ heading, body, subheading, bullets, children }: ChatTextProps) {
+export function ChatText({ heading, body, subheading, bullets, dark = false, children }: ChatTextProps) {
+  const textColor = dark ? "text-white" : "text-text-primary";
   return (
     <div className="flex w-[680px] flex-col items-start gap-2">
-      <div className="flex w-full flex-col items-start gap-3 text-text-primary">
+      <div className={`flex w-full flex-col items-start gap-3 ${textColor}`}>
         {heading && <p className="w-full text-2xl font-semibold leading-8">{heading}</p>}
         {body && <p className="w-full text-sm font-normal leading-6">{body}</p>}
       </div>
       {subheading && (
         <div className="flex w-full items-center justify-center pb-4 pt-6">
-          <p className="min-w-0 flex-1 text-base font-semibold leading-6 text-text-primary">{subheading}</p>
+          <p className={`min-w-0 flex-1 text-base font-semibold leading-6 ${textColor}`}>{subheading}</p>
         </div>
       )}
       {bullets && bullets.length > 0 && (
-        <ul className="w-full list-disc pl-6 text-text-primary">
+        <ul className={`w-full list-disc pl-6 ${textColor}`}>
           {bullets.map((b, i) => (
             <li key={i} className="text-sm leading-6">
               {b.term && <span className="font-semibold">{b.term}: </span>}
@@ -52,6 +54,7 @@ type ChatActionsProps = {
   onReadAloud?: () => void;
   onThumbUp?: () => void;
   onThumbDown?: () => void;
+  dark?: boolean;
   className?: string;
 };
 
@@ -62,30 +65,32 @@ export function ChatActions({
   onReadAloud,
   onThumbUp,
   onThumbDown,
+  dark = false,
   className,
 }: ChatActionsProps) {
+  const iconClass = `object-contain ${dark ? "brightness-0 invert" : ""}`;
   return (
     <div className={className || "flex h-6 w-[680px] items-center justify-between"}>
       <div className="flex items-center gap-2">
         <button type="button" aria-label="Copy" onClick={onCopy} className="flex size-6 shrink-0 items-center justify-center">
-          <img src={copyIcon} alt="" className="h-[17px] w-3.5" />
+          <img src={copyIcon} alt="" className={`h-[17px] w-3.5 ${iconClass}`} />
         </button>
         <button type="button" aria-label="Regenerate" onClick={onRegenerate} className="flex size-6 shrink-0 items-center justify-center">
-          <img src={autorenewIcon} alt="" className="h-3.5 w-3.5" />
+          <img src={autorenewIcon} alt="" className={`h-3.5 w-3.5 ${iconClass}`} />
         </button>
         <button type="button" aria-label="Download" onClick={onDownload} className="flex size-6 shrink-0 items-center justify-center">
-          <img src={downloadIcon} alt="" className="h-3.5 w-3.5" />
+          <img src={downloadIcon} alt="" className={`h-3.5 w-3.5 ${iconClass}`} />
         </button>
         <button type="button" aria-label="Read aloud" onClick={onReadAloud} className="flex size-6 shrink-0 items-center justify-center">
-          <img src={volumeUpIcon} alt="" className="h-[15.0385px] w-[15.3845px]" />
+          <img src={volumeUpIcon} alt="" className={`h-[15.0385px] w-[15.3845px] ${iconClass}`} />
         </button>
       </div>
       <div className="flex items-center gap-2">
         <button type="button" aria-label="Good response" onClick={onThumbUp} className="flex size-6 shrink-0 items-center justify-center">
-          <img src={thumbUpIcon} alt="" className="h-[17.1923px] w-[19px]" />
+          <img src={thumbUpIcon} alt="" className={`h-[17.1923px] w-[19px] ${iconClass}`} />
         </button>
         <button type="button" aria-label="Bad response" onClick={onThumbDown} className="flex size-6 shrink-0 items-center justify-center">
-          <img src={thumbDownIcon} alt="" className="h-[17.1923px] w-[19px]" />
+          <img src={thumbDownIcon} alt="" className={`h-[17.1923px] w-[19px] ${iconClass}`} />
         </button>
       </div>
     </div>

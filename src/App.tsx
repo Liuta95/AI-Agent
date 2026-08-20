@@ -19,6 +19,7 @@ function deriveChatTitle(query: string): string {
 
 export default function App() {
   const [view, setView] = useState<View>("home");
+  const [dark, setDark] = useState(false);
   const [feedModalOpen, setFeedModalOpen] = useState(false);
   const [chats, setChats] = useState<Chat[]>([]);
   const [activeChatId, setActiveChatId] = useState<string | null>(null);
@@ -45,9 +46,11 @@ export default function App() {
   const activeChat = chats.find((c) => c.id === activeChatId) ?? null;
 
   return (
-    <div className="h-screen bg-white">
+    <div className={`h-screen ${dark ? "bg-[#1c1b1f]" : "bg-white"}`}>
       <div className="flex h-full items-stretch justify-between">
         <Sidebar
+          dark={dark}
+          onToggleDark={() => setDark((d) => !d)}
           activeView={view === "chat" ? "home" : view}
           extraChats={chats}
           activeChatId={view === "chat" ? activeChatId : null}
@@ -57,19 +60,25 @@ export default function App() {
         />
         {view === "home" ? (
           <>
-            <HomePage onSend={handleSend} />
+            <HomePage dark={dark} onSend={handleSend} />
             <DailyNewsPanel
+              dark={dark}
               onOpenFeed={() => setView("daily-news")}
               onViewAll={() => setView("daily-news")}
             />
           </>
         ) : view === "daily-news" ? (
-          <DailyNewsPage onCreateFeed={() => setFeedModalOpen(true)} />
+          <DailyNewsPage dark={dark} onCreateFeed={() => setFeedModalOpen(true)} />
         ) : (
-          activeChat && <ChatConversation query={activeChat.query} />
+          activeChat && <ChatConversation query={activeChat.query} dark={dark} />
         )}
       </div>
-      <CreateFeedModal open={feedModalOpen} onClose={() => setFeedModalOpen(false)} onCreate={handleCreateFeed} />
+      <CreateFeedModal
+        open={feedModalOpen}
+        dark={dark}
+        onClose={() => setFeedModalOpen(false)}
+        onCreate={handleCreateFeed}
+      />
     </div>
   );
 }
