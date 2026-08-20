@@ -1,6 +1,5 @@
 import docIcon from "../../assets/icons/doc-file.svg";
 import docIconDisabled from "../../assets/icons/doc-file-disabled.svg";
-import pictureIcon from "../../assets/icons/picture-file.svg";
 import loaderIcon from "../../assets/icons/loader.svg";
 import closeIcon from "../../assets/icons/close-small.svg";
 
@@ -9,7 +8,6 @@ type FileChipState = "default" | "hover" | "error" | "disabled" | "uploading";
 type FileChipProps = {
   fileName: string;
   state?: FileChipState;
-  kind?: "doc" | "picture";
   dark?: boolean;
   onRemove?: () => void;
   className?: string;
@@ -30,7 +28,6 @@ function stateClasses(state: FileChipState, dark: boolean) {
 export function FileChip({
   fileName,
   state = "default",
-  kind = "doc",
   dark = false,
   onRemove,
   className,
@@ -55,8 +52,6 @@ export function FileChip({
       <span className="flex size-6 shrink-0 items-center justify-center">
         {uploading ? (
           <img src={loaderIcon} alt="" className="h-4 w-4 animate-spin" />
-        ) : kind === "picture" ? (
-          <img src={pictureIcon} alt="" className="h-[13px] w-[15.423px]" />
         ) : (
           <img src={disabled ? docIconDisabled : docIcon} alt="" className="h-4 w-[15px] rounded" />
         )}

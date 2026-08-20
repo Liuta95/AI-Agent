@@ -30,10 +30,6 @@ type PromptBarProps = {
   className?: string;
 };
 
-function fileKind(file: File): "doc" | "picture" {
-  return file.type.startsWith("image/") ? "picture" : "doc";
-}
-
 export function PromptBar({
   value: controlledValue,
   defaultValue = "",
@@ -221,7 +217,6 @@ export function PromptBar({
                 key={a.id}
                 fileName={a.file.name}
                 state={a.uploading ? "uploading" : "default"}
-                kind={fileKind(a.file)}
                 dark={dark}
                 onRemove={() => removeAttachment(a.id)}
               />
