@@ -33,7 +33,7 @@ export function SidebarMenuItem({ icon, label, state = "default", dark = false, 
         </span>
         <p
           className={`min-w-0 flex-1 truncate text-sm font-normal leading-6 ${
-            dark ? "text-[#c4a1ff]" : "text-secondary-text"
+            dark ? "text-white" : "text-secondary-text"
           }`}
         >
           {label}
