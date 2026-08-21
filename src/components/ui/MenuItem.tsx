@@ -16,10 +16,10 @@ type MenuItemProps = {
 
 function rowClass(disabled: boolean, dark: boolean) {
   return `flex w-full items-center gap-2 rounded-lg px-4 py-2 outline-none transition-colors ${
-    dark ? "bg-[#2e2b33]" : "bg-white"
+    dark ? "bg-transparent" : "bg-white"
   } ${
     disabled
-      ? `cursor-not-allowed ${dark ? "bg-[#1c1b1f]" : "bg-[#e3e4e5]"}`
+      ? `cursor-not-allowed ${dark ? "bg-[#2e2b33]" : "bg-[#e3e4e5]"}`
       : `cursor-pointer focus-within:border-[3px] focus-within:border-[#d1c4e6] ${
           dark ? "hover:bg-white/10" : "hover:bg-[#f5f2fa]"
         }`

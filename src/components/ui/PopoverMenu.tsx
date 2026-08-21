@@ -18,8 +18,10 @@ export function PopoverMenu({ options, dark = false, className }: PopoverMenuPro
     <div
       className={
         className ||
-        `flex w-[280px] flex-col items-start overflow-clip rounded-xl border py-2 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.08)] ${
-          dark ? "border-white/10 bg-[#2e2b33]" : "border-[#e3e4e5] bg-white"
+        `flex w-[280px] flex-col items-start overflow-clip rounded-xl border py-2 ${
+          dark
+            ? "border-[#524c59] bg-[#3d3845] shadow-[0px_8px_24px_0px_rgba(0,0,0,0.4)]"
+            : "border-[#e3e4e5] bg-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.08)]"
         }`
       }
     >

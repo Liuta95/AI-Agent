@@ -24,8 +24,10 @@ export function SearchDropdown({
     <div
       className={
         className ||
-        `flex w-[280px] flex-col items-start overflow-clip rounded-lg pb-2 shadow-[0px_2px_10px_0px_rgba(85,69,110,0.09)] ${
-          dark ? "bg-[#2e2b33]" : "bg-white"
+        `flex w-[280px] flex-col items-start overflow-clip rounded-lg pb-2 ${
+          dark
+            ? "border border-[#524c59] bg-[#3d3845] shadow-[0px_8px_24px_0px_rgba(0,0,0,0.4)]"
+            : "bg-white shadow-[0px_2px_10px_0px_rgba(85,69,110,0.09)]"
         }`
       }
     >
