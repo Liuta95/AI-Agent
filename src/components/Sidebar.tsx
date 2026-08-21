@@ -19,6 +19,7 @@ import { SidebarMenuItem } from "./SidebarMenuItem";
 import { TopicHeader } from "./TopicHeader";
 import { SearchDropdown } from "./ui/SearchDropdown";
 import { ThemeToggle } from "./ui/ThemeToggle";
+import { PortalPopover } from "./ui/PortalPopover";
 
 const tools = [
   { icon: extension, label: "Text" },
@@ -80,11 +81,13 @@ export function Sidebar({
 }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(initialCollapsed);
   const [searchValue, setSearchValue] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchWrapperRef = useRef<HTMLDivElement>(null);
 
   function handleSearchSelect(label: string) {
     setSearchValue(label);
-    searchInputRef.current?.blur();
+    setSearchOpen(false);
   }
 
   if (collapsed) {
@@ -215,7 +218,7 @@ export function Sidebar({
               New chat
             </span>
           </button>
-          <div className="group relative flex w-full flex-col items-start gap-2">
+          <div ref={searchWrapperRef} className="relative flex w-full flex-col items-start gap-2">
             <div
               className={`flex w-full shrink-0 items-center gap-1 rounded-3xl border py-1.5 pl-3 pr-2 ${
                 dark ? "border-[#62606e] bg-[#2e2b33]" : "border-input-border bg-white"
@@ -231,15 +234,16 @@ export function Sidebar({
                 type="text"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
+                onFocus={() => setSearchOpen(true)}
                 placeholder="Search chats"
                 className={`min-w-0 flex-1 bg-transparent text-sm font-normal leading-6 outline-none placeholder:text-current ${
                   dark ? "text-[#b0b2be]" : "text-input-placeholder"
                 }`}
               />
             </div>
-            <div className="absolute left-0 top-full z-20 mt-1 hidden group-focus-within:block">
+            <PortalPopover anchorRef={searchWrapperRef} open={searchOpen} onClose={() => setSearchOpen(false)}>
               <SearchDropdown dark={dark} onSelect={handleSearchSelect} />
-            </div>
+            </PortalPopover>
           </div>
         </div>
 

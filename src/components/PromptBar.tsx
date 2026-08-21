@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type DragEvent, type KeyboardEvent } from "react";
+import { useRef, useState, type DragEvent, type KeyboardEvent } from "react";
 import addIcon from "../assets/icons/add.svg";
 import micIcon from "../assets/icons/mic.svg";
 import sendIcon from "../assets/icons/send.svg";
@@ -10,6 +10,7 @@ import workIcon from "../assets/icons/work.svg";
 import linkIcon from "../assets/icons/link.svg";
 import { FileChip } from "./ui/FileChip";
 import { PopoverMenu, type PopoverMenuOption } from "./ui/PopoverMenu";
+import { PortalPopover } from "./ui/PortalPopover";
 
 type Attachment = {
   id: string;
@@ -50,17 +51,6 @@ export function PromptBar({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const addMenuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!addMenuOpen) return;
-    function handleClickOutside(e: MouseEvent) {
-      if (addMenuRef.current && !addMenuRef.current.contains(e.target as Node)) {
-        setAddMenuOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [addMenuOpen]);
 
   const value = controlledValue ?? internalValue;
   const hasValue = value.trim().length > 0;
@@ -249,11 +239,14 @@ export function PromptBar({
             >
               <img src={addIcon} alt="" className="h-4 w-4" />
             </button>
-            {addMenuOpen && (
-              <div className="absolute bottom-full left-0 z-30 mb-2">
-                <PopoverMenu options={addMenuOptions} dark={dark} />
-              </div>
-            )}
+            <PortalPopover
+              anchorRef={addMenuRef}
+              open={addMenuOpen}
+              onClose={() => setAddMenuOpen(false)}
+              placement="top-start"
+            >
+              <PopoverMenu options={addMenuOptions} dark={dark} />
+            </PortalPopover>
           </div>
           <input
             ref={fileInputRef}
