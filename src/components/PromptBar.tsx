@@ -11,6 +11,7 @@ import linkIcon from "../assets/icons/link.svg";
 import { FileChip } from "./ui/FileChip";
 import { PopoverMenu, type PopoverMenuOption } from "./ui/PopoverMenu";
 import { PortalPopover } from "./ui/PortalPopover";
+import { useSpeechRecognition, isSpeechRecognitionSupported } from "../hooks/useSpeechRecognition";
 
 type Attachment = {
   id: string;
@@ -25,7 +26,6 @@ type PromptBarProps = {
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   onSend?: (value: string, files: File[]) => void;
-  onVoiceInput?: () => void;
   placeholder?: string;
   dark?: boolean;
   className?: string;
@@ -36,7 +36,6 @@ export function PromptBar({
   defaultValue = "",
   onValueChange,
   onSend,
-  onVoiceInput,
   placeholder = "Ask me anything...",
   dark = false,
   className,
@@ -70,6 +69,24 @@ export function PromptBar({
     el.style.height = `${el.scrollHeight}px`;
   }
 
+  const baseValueRef = useRef("");
+  const { listening, start: startListening, stop: stopListening } = useSpeechRecognition({
+    onTranscript: (transcript) => {
+      const base = baseValueRef.current;
+      setValue(base ? `${base} ${transcript}`.trim() : transcript);
+      autoResize();
+    },
+  });
+
+  function handleMicClick() {
+    if (listening) {
+      stopListening();
+    } else {
+      baseValueRef.current = value;
+      startListening();
+    }
+  }
+
   function addFiles(files: FileList | File[]) {
     const next = Array.from(files).map((file) => ({
       id: `${file.name}-${file.size}-${Date.now()}-${Math.random()}`,
@@ -92,6 +109,7 @@ export function PromptBar({
 
   function handleSend() {
     if (!canSend) return;
+    if (listening) stopListening();
     onSend?.(value, attachments.map((a) => a.file));
     if (controlledValue === undefined) setInternalValue("");
     setAttachments([]);
@@ -237,7 +255,7 @@ export function PromptBar({
               onClick={() => setAddMenuOpen((prev) => !prev)}
               className="flex size-6 shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl"
             >
-              <img src={addIcon} alt="" className="h-4 w-4" />
+              <img src={addIcon} alt="" className={`h-4 w-4 ${dark ? "brightness-0 invert" : ""}`} />
             </button>
             <PortalPopover
               anchorRef={addMenuRef}
@@ -261,11 +279,15 @@ export function PromptBar({
           <div className="flex shrink-0 items-center gap-4">
             <button
               type="button"
-              aria-label="Voice input"
-              onClick={onVoiceInput}
-              className="flex size-6 shrink-0 items-center justify-center gap-1 overflow-clip rounded-3xl"
+              aria-label={listening ? "Stop voice input" : "Voice input"}
+              onClick={handleMicClick}
+              disabled={!isSpeechRecognitionSupported}
+              title={!isSpeechRecognitionSupported ? "Voice input isn't supported in this browser" : undefined}
+              className={`flex size-6 shrink-0 items-center justify-center gap-1 overflow-clip rounded-full transition-colors disabled:opacity-40 ${
+                listening ? "animate-pulse bg-[#dd524c]/20" : ""
+              }`}
             >
-              <img src={micIcon} alt="" className="h-[17.5px] w-3" />
+              <img src={micIcon} alt="" className={`h-[17.5px] w-3 ${dark ? "brightness-0 invert" : ""}`} />
             </button>
             <button
               type="button"
@@ -276,7 +298,7 @@ export function PromptBar({
                 canSend ? (dark ? "bg-[#1f1730]" : "bg-[#f5f2fa]") : ""
               }`}
             >
-              <img src={sendIcon} alt="" className="h-[13px] w-[15.423px]" />
+              <img src={sendIcon} alt="" className={`h-[13px] w-[15.423px] ${dark ? "brightness-0 invert" : ""}`} />
             </button>
           </div>
         </div>
