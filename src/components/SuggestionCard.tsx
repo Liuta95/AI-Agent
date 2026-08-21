@@ -10,12 +10,12 @@ type SuggestionCardProps = {
 
 function stateClasses(state: SuggestionCardState, dark: boolean) {
   if (state === "selected") {
-    return dark ? "border border-[#9747ff] bg-[#2e2b33]" : "border border-secondary-border bg-[#f5f2fa]";
+    return dark ? "border border-[#b080ff] bg-[#3d3845]" : "border border-secondary-border bg-[#f5f2fa]";
   }
   if (state === "hover") {
-    return dark ? "bg-white/10" : "bg-[#e0d7ee]";
+    return dark ? "bg-[#3d3845]" : "bg-[#e0d7ee]";
   }
-  return dark ? "border border-[#62606e] bg-[#2e2b33]" : "border border-input-border bg-white";
+  return dark ? "border border-[#3d3845] bg-[#2e2b33]" : "border border-input-border bg-white";
 }
 
 export function SuggestionCard({ icon, label, state = "default", dark = false, onClick }: SuggestionCardProps) {
@@ -36,7 +36,7 @@ export function SuggestionCard({ icon, label, state = "default", dark = false, o
       </span>
       <span
         className={`whitespace-nowrap text-center text-base font-normal leading-6 ${
-          dark ? (state === "selected" ? "text-[#c4a1ff]" : "text-white") : state === "selected" ? "text-secondary-text" : "text-text-primary"
+          dark ? "text-white" : state === "selected" ? "text-secondary-text" : "text-text-primary"
         }`}
       >
         {label}
