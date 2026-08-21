@@ -43,6 +43,11 @@ export default function App() {
     setView("chat");
   }
 
+  function handleNewChat() {
+    setActiveChatId(null);
+    setView("home");
+  }
+
   const activeChat = chats.find((c) => c.id === activeChatId) ?? null;
 
   return (
@@ -56,6 +61,7 @@ export default function App() {
           activeChatId={view === "chat" ? activeChatId : null}
           onNavigateHome={() => setView("home")}
           onNavigateDailyNews={() => setView("daily-news")}
+          onNewChat={handleNewChat}
           onSelectChat={handleSelectChat}
         />
         {view === "home" ? (

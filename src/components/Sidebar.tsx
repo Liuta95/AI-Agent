@@ -65,6 +65,7 @@ type SidebarProps = {
   activeChatId?: string | null;
   onNavigateHome?: () => void;
   onNavigateDailyNews?: () => void;
+  onNewChat?: () => void;
   onSelectChat?: (id: string) => void;
 };
 
@@ -77,6 +78,7 @@ export function Sidebar({
   activeChatId = null,
   onNavigateHome,
   onNavigateDailyNews,
+  onNewChat,
   onSelectChat,
 }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(initialCollapsed);
@@ -113,7 +115,7 @@ export function Sidebar({
             <button
               type="button"
               aria-label="New chat"
-              onClick={onNavigateHome}
+              onClick={onNewChat}
               className={`flex size-8 shrink-0 items-center justify-center rounded-full border ${
                 dark ? "border-[#9747ff]" : "border-secondary-border"
               }`}
@@ -202,7 +204,7 @@ export function Sidebar({
         <div className="flex w-full flex-col items-start gap-1">
           <button
             type="button"
-            onClick={onNavigateHome}
+            onClick={onNewChat}
             className={`flex w-full shrink-0 items-center justify-center gap-1 rounded-2xl border px-4 py-1.5 ${
               dark ? "border-[#9747ff]" : "border-secondary-border"
             }`}
