@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { useEffect } from "react";
 import { LottieAnimation } from "./LottieAnimation";
-import multipleCirclesAnimation from "../../assets/animations/multiple-circles.json";
+import aiFlowAnimation from "../../assets/animations/ai-flow.json";
 
 type VoiceInputModalProps = {
   open: boolean;
@@ -38,7 +38,7 @@ export function VoiceInputModal({ open, transcript, listening, dark = false, onC
       </button>
 
       <div className="relative flex size-56 shrink-0 items-center justify-center">
-        <LottieAnimation animationData={multipleCirclesAnimation} className="size-full" />
+        <LottieAnimation animationData={aiFlowAnimation} className="size-full" />
       </div>
 
       <div className="flex w-full max-w-[600px] flex-col items-center gap-2 px-6 text-center">
