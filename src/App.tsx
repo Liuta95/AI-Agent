@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Sidebar } from "./components/Sidebar";
 import { HomePage } from "./components/HomePage";
-import { DailyNewsPanel } from "./components/DailyNewsPanel";
 import { DailyNewsPage } from "./components/DailyNewsPage";
 import { ChatConversation } from "./components/ChatConversation";
 import { CreateFeedModal } from "./components/CreateFeedModal";
@@ -65,14 +64,7 @@ export default function App() {
           onSelectChat={handleSelectChat}
         />
         {view === "home" ? (
-          <>
-            <HomePage dark={dark} onSend={handleSend} />
-            <DailyNewsPanel
-              dark={dark}
-              onOpenFeed={() => setView("daily-news")}
-              onViewAll={() => setView("daily-news")}
-            />
-          </>
+          <HomePage dark={dark} onSend={handleSend} />
         ) : view === "daily-news" ? (
           <DailyNewsPage dark={dark} onCreateFeed={() => setFeedModalOpen(true)} />
         ) : (
