@@ -1,5 +1,7 @@
 import { createPortal } from "react-dom";
 import { useEffect } from "react";
+import { LottieAnimation } from "./LottieAnimation";
+import multipleCirclesAnimation from "../../assets/animations/multiple-circles.json";
 
 type VoiceInputModalProps = {
   open: boolean;
@@ -36,36 +38,7 @@ export function VoiceInputModal({ open, transcript, listening, dark = false, onC
       </button>
 
       <div className="relative flex size-56 shrink-0 items-center justify-center">
-        <span
-          className="absolute inset-0 rounded-full animate-ping"
-          style={{
-            background: "radial-gradient(circle, rgba(151,71,255,0.35), transparent 70%)",
-            animationDuration: "2.4s",
-          }}
-        />
-        <span
-          className="absolute inset-6 rounded-full animate-ping"
-          style={{
-            background: "radial-gradient(circle, rgba(151,71,255,0.45), transparent 70%)",
-            animationDuration: "2.4s",
-            animationDelay: "0.5s",
-          }}
-        />
-        <span
-          className="absolute inset-12 rounded-full animate-ping"
-          style={{
-            background: "radial-gradient(circle, rgba(176,128,255,0.55), transparent 70%)",
-            animationDuration: "2.4s",
-            animationDelay: "1s",
-          }}
-        />
-        <div
-          className="relative size-28 shrink-0 animate-spin rounded-full shadow-[0_0_60px_rgba(151,71,255,0.55)]"
-          style={{
-            background: "conic-gradient(from 180deg, #9747ff, #b080ff, #55456e, #9747ff)",
-            animationDuration: "6s",
-          }}
-        />
+        <LottieAnimation animationData={multipleCirclesAnimation} className="size-full" />
       </div>
 
       <div className="flex w-full max-w-[600px] flex-col items-center gap-2 px-6 text-center">
