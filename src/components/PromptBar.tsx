@@ -11,6 +11,7 @@ import linkIcon from "../assets/icons/link.svg";
 import { FileChip } from "./ui/FileChip";
 import { PopoverMenu, type PopoverMenuOption } from "./ui/PopoverMenu";
 import { PortalPopover } from "./ui/PortalPopover";
+import { VoiceInputModal } from "./ui/VoiceInputModal";
 import { useSpeechRecognition, isSpeechRecognitionSupported } from "../hooks/useSpeechRecognition";
 
 type Attachment = {
@@ -69,22 +70,36 @@ export function PromptBar({
     el.style.height = `${el.scrollHeight}px`;
   }
 
+  const [voiceModalOpen, setVoiceModalOpen] = useState(false);
+  const [liveTranscript, setLiveTranscript] = useState("");
   const baseValueRef = useRef("");
   const { listening, start: startListening, stop: stopListening } = useSpeechRecognition({
-    onTranscript: (transcript) => {
-      const base = baseValueRef.current;
-      setValue(base ? `${base} ${transcript}`.trim() : transcript);
-      autoResize();
-    },
+    onTranscript: setLiveTranscript,
   });
 
   function handleMicClick() {
-    if (listening) {
-      stopListening();
-    } else {
-      baseValueRef.current = value;
-      startListening();
+    baseValueRef.current = value;
+    setLiveTranscript("");
+    setVoiceModalOpen(true);
+    startListening();
+  }
+
+  function handleVoiceCancel() {
+    stopListening();
+    setVoiceModalOpen(false);
+    setLiveTranscript("");
+  }
+
+  function handleVoiceDone() {
+    stopListening();
+    const base = baseValueRef.current;
+    const combined = liveTranscript.trim();
+    if (combined) {
+      setValue(base ? `${base} ${combined}` : combined);
+      autoResize();
     }
+    setVoiceModalOpen(false);
+    setLiveTranscript("");
   }
 
   function addFiles(files: FileList | File[]) {
@@ -279,13 +294,11 @@ export function PromptBar({
           <div className="flex shrink-0 items-center gap-4">
             <button
               type="button"
-              aria-label={listening ? "Stop voice input" : "Voice input"}
+              aria-label="Voice input"
               onClick={handleMicClick}
               disabled={!isSpeechRecognitionSupported}
               title={!isSpeechRecognitionSupported ? "Voice input isn't supported in this browser" : undefined}
-              className={`flex size-6 shrink-0 items-center justify-center gap-1 overflow-clip rounded-full transition-colors disabled:opacity-40 ${
-                listening ? "animate-pulse bg-[#dd524c]/20" : ""
-              }`}
+              className="flex size-6 shrink-0 items-center justify-center gap-1 overflow-clip rounded-full transition-colors disabled:opacity-40"
             >
               <img src={micIcon} alt="" className={`h-[17.5px] w-3 ${dark ? "brightness-0 invert" : ""}`} />
             </button>
@@ -311,6 +324,14 @@ export function PromptBar({
           <p className="text-base font-normal leading-normal text-[#6e598e]">Drop your files here.</p>
         </div>
       )}
+      <VoiceInputModal
+        open={voiceModalOpen}
+        transcript={liveTranscript}
+        listening={listening}
+        dark={dark}
+        onCancel={handleVoiceCancel}
+        onDone={handleVoiceDone}
+      />
     </div>
   );
 }
