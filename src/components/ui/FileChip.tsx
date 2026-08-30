@@ -1,7 +1,6 @@
-import docIcon from "../../assets/icons/doc-file.svg";
-import docIconDisabled from "../../assets/icons/doc-file-disabled.svg";
 import loaderIcon from "../../assets/icons/loader.svg";
 import closeIcon from "../../assets/icons/close-small.svg";
+import { FileTypeIcon } from "./FileTypeIcon";
 
 type FileChipState = "default" | "hover" | "error" | "disabled" | "uploading";
 
@@ -53,7 +52,7 @@ export function FileChip({
         {uploading ? (
           <img src={loaderIcon} alt="" className="h-4 w-4 animate-spin" />
         ) : (
-          <img src={disabled ? docIconDisabled : docIcon} alt="" className="h-4 w-[15px] rounded" />
+          <FileTypeIcon fileName={fileName} disabled={disabled} className="h-4 w-[15px]" />
         )}
       </span>
       <p className={`whitespace-nowrap text-xs font-normal leading-4 ${textColor}`}>{fileName}</p>
