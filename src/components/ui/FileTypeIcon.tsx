@@ -1,31 +1,38 @@
-const EXTENSION_COLORS: Record<string, string> = {
-  pdf: "#DC3E15",
-  doc: "#2B579A",
-  docx: "#2B579A",
-  rtf: "#2B579A",
-  xls: "#217346",
-  xlsx: "#217346",
-  csv: "#217346",
-  ppt: "#D24726",
-  pptx: "#D24726",
-  png: "#8D73B6",
-  jpg: "#8D73B6",
-  jpeg: "#8D73B6",
-  gif: "#8D73B6",
-  webp: "#8D73B6",
-  svg: "#8D73B6",
-  mp3: "#B080FF",
-  wav: "#B080FF",
-  mp4: "#6E598E",
-  mov: "#6E598E",
+type FileTypeInfo = { label: string; color: string };
+
+const FILE_TYPES: Record<string, FileTypeInfo> = {
+  pdf: { label: "PDF", color: "#DC3E15" },
+  doc: { label: "DOC", color: "#2B579A" },
+  docx: { label: "DOC", color: "#2B579A" },
+  rtf: { label: "RTF", color: "#2B579A" },
+  xls: { label: "XLS", color: "#217346" },
+  xlsx: { label: "XLS", color: "#217346" },
+  csv: { label: "CSV", color: "#217346" },
+  ppt: { label: "PPT", color: "#D24726" },
+  pptx: { label: "PPT", color: "#D24726" },
+  png: { label: "PNG", color: "#8D73B6" },
+  jpg: { label: "JPG", color: "#8D73B6" },
+  jpeg: { label: "JPG", color: "#8D73B6" },
+  gif: { label: "GIF", color: "#8D73B6" },
+  webp: { label: "IMG", color: "#8D73B6" },
+  svg: { label: "SVG", color: "#8D73B6" },
+  mp3: { label: "MP3", color: "#B080FF" },
+  wav: { label: "WAV", color: "#B080FF" },
+  mp4: { label: "MP4", color: "#6E598E" },
+  mov: { label: "MOV", color: "#6E598E" },
+  zip: { label: "ZIP", color: "#61647A" },
+  txt: { label: "TXT", color: "#61647A" },
+  json: { label: "JSN", color: "#61647A" },
 };
 
 const DISABLED_COLOR = "#B0B2BE";
 
-export function fileTypeColor(fileName: string, disabled = false): string {
-  if (disabled) return DISABLED_COLOR;
+function fileTypeInfo(fileName: string, disabled: boolean): FileTypeInfo {
   const ext = fileName.split(".").pop()?.toLowerCase() ?? "";
-  return EXTENSION_COLORS[ext] ?? "#61647A";
+  const known = FILE_TYPES[ext];
+  const label = known?.label ?? (ext ? ext.slice(0, 3).toUpperCase() : "FILE");
+  const color = disabled ? DISABLED_COLOR : (known?.color ?? "#61647A");
+  return { label, color };
 }
 
 type FileTypeIconProps = {
@@ -35,20 +42,26 @@ type FileTypeIconProps = {
 };
 
 export function FileTypeIcon({ fileName, disabled = false, className }: FileTypeIconProps) {
-  const color = fileTypeColor(fileName, disabled);
+  const { label, color } = fileTypeInfo(fileName, disabled);
   return (
-    <svg
-      viewBox="0 0 15 16"
-      className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        d="M8.586 0c.265 0 .519.105.707.293l3.414 3.414c.188.188.293.442.293.707V15.5c0 .276-.224.5-.5.5h-11c-.276 0-.5-.224-.5-.5V.5c0-.276.224-.5.5-.5h7.086Z"
-        fill={color}
-      />
-      <path d="M8.586 0 12.707 4.121 12.707 4.414 9 4.414C8.448 4.414 8 3.966 8 3.414L8 0.293 8.586 0Z" fill="white" fillOpacity="0.3" />
-    </svg>
+    <span className={className || "relative flex h-5 w-[19px] shrink-0 items-end justify-center"}>
+      <svg viewBox="0 0 15 16" className="absolute inset-0 size-full" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path
+          d="M8.586 0c.265 0 .519.105.707.293l3.414 3.414c.188.188.293.442.293.707V15.5c0 .276-.224.5-.5.5h-11c-.276 0-.5-.224-.5-.5V.5c0-.276.224-.5.5-.5h7.086Z"
+          fill={color}
+        />
+        <path
+          d="M8.586 0 12.707 4.121 12.707 4.414 9 4.414C8.448 4.414 8 3.966 8 3.414L8 0.293 8.586 0Z"
+          fill="white"
+          fillOpacity="0.3"
+        />
+      </svg>
+      <span
+        className="relative z-10 mb-[2.5px] font-bold uppercase leading-none text-white"
+        style={{ fontSize: "5px", letterSpacing: "0.2px" }}
+      >
+        {label}
+      </span>
+    </span>
   );
 }

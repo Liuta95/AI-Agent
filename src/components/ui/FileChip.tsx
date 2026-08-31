@@ -52,7 +52,7 @@ export function FileChip({
         {uploading ? (
           <img src={loaderIcon} alt="" className="h-4 w-4 animate-spin" />
         ) : (
-          <FileTypeIcon fileName={fileName} disabled={disabled} className="h-4 w-[15px]" />
+          <FileTypeIcon fileName={fileName} disabled={disabled} className="relative flex h-5 w-[19px] shrink-0 items-end justify-center" />
         )}
       </span>
       <p className={`whitespace-nowrap text-xs font-normal leading-4 ${textColor}`}>{fileName}</p>
