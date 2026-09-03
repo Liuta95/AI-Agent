@@ -11,6 +11,13 @@ const SOURCES = [
   "Website_document-name-example_V1",
 ];
 
+/** Keeps a long or short query readable inside a 2xl heading; mirrors the sidebar's chat-title truncation. */
+function truncateForHeading(query: string, max = 64): string {
+  const trimmed = query.trim().replace(/\s+/g, " ");
+  if (trimmed.length <= max) return trimmed;
+  return `${trimmed.slice(0, max).trimEnd()}…`;
+}
+
 type ChatConversationProps = {
   query: string;
   dark?: boolean;
@@ -18,6 +25,7 @@ type ChatConversationProps = {
 };
 
 export function ChatConversation({ query, dark = false, className }: ChatConversationProps) {
+  const queryLabel = truncateForHeading(query);
   return (
     <div
       className={
@@ -27,9 +35,9 @@ export function ChatConversation({ query, dark = false, className }: ChatConvers
       <div className="scrollbar-thin flex w-[728px] flex-1 flex-col items-start gap-4 overflow-y-auto">
         <UserMessage text={query} dark={dark} />
         <ChatText
-          heading="Core idea"
-          body="A reusable component is a UI building block you define once and use many times, with different content or settings instead of duplicating the design or code each time. In practice, that means creating one flexible source component, then controlling its variations through properties, variants, or inputs."
-          subheading="Figma workflow"
+          heading={`Here's what I found for "${queryLabel}"`}
+          body="This is a preview of how a Sidekick answer is structured — headings, supporting detail, and cited sources below. This build isn't connected to a live model yet, so the walkthrough itself isn't generated from your question; here's a sample of what a cited answer looks like once it is:"
+          subheading="Example: keeping a Figma component reusable"
           bullets={[
             {
               text: "Start by spotting patterns that repeat, such as buttons, inputs, cards, modals, or list items. Figma says components can be simple like shapes, buttons, and fields, or more complex like cards and menus, which makes them the right unit for reuse in a design system.",
