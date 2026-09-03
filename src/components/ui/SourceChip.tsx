@@ -1,11 +1,15 @@
+import { useState } from "react";
+
 type SourceChipState = "default" | "hover" | "active";
 
 type SourceChipProps = {
   index: number;
   label: string;
+  /** Forces a specific visual state (e.g. for static previews). Uncontrolled by default: the chip tracks its own hover/selected state. */
   state?: SourceChipState;
   dark?: boolean;
   className?: string;
+  onOpen?: (index: number) => void;
 };
 
 const STATE_CLASSES: Record<SourceChipState, { chip: string; badge: string; badgeText: string; label: string }> = {
@@ -50,14 +54,28 @@ const DARK_STATE_CLASSES: Record<SourceChipState, { chip: string; badge: string;
   },
 };
 
-export function SourceChip({ index, label, state = "default", dark = false, className }: SourceChipProps) {
-  const styles = (dark ? DARK_STATE_CLASSES : STATE_CLASSES)[state];
+export function SourceChip({ index, label, state, dark = false, className, onOpen }: SourceChipProps) {
+  const [hovered, setHovered] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const resolvedState: SourceChipState = state ?? (selected ? "active" : hovered ? "hover" : "default");
+  const styles = (dark ? DARK_STATE_CLASSES : STATE_CLASSES)[resolvedState];
 
   return (
-    <div
+    <button
+      type="button"
+      aria-pressed={selected}
+      title={label}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setHovered(true)}
+      onBlur={() => setHovered(false)}
+      onClick={() => {
+        setSelected((s) => !s);
+        onOpen?.(index);
+      }}
       className={
         className ||
-        `flex w-[222px] items-center gap-2 rounded-full border px-2 py-1 ${styles.chip}`
+        `flex w-[222px] items-center gap-2 rounded-full border px-2 py-1 outline-none transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#d1c4e6] ${styles.chip}`
       }
     >
       <div className={`flex size-[18px] shrink-0 items-center justify-center rounded-full border ${styles.badge}`}>
@@ -66,6 +84,6 @@ export function SourceChip({ index, label, state = "default", dark = false, clas
         </p>
       </div>
       <p className={`min-w-0 flex-1 truncate text-xs font-normal leading-4 ${styles.label}`}>{label}</p>
-    </div>
+    </button>
   );
 }
