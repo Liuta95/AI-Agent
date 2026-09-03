@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-03T13:37:40Z",
+  "title": "Design System: AI Agent",
+  "extensions": {
+    "colorMeta": {
+      "brand-primary": { "role": "primary", "displayName": "Deep Plum", "canonical": "#55456e", "tonalRamp": ["#1a1526", "#332a4d", "#493a68", "#55456e", "#6e5a8a", "#9484ab", "#bdb0cf", "#e8e3ef"] },
+      "accent-violet": { "role": "primary", "displayName": "Electric Violet", "canonical": "#9747ff", "tonalRamp": ["#2b0a5c", "#4a17a3", "#6b28d6", "#8438f0", "#9747ff", "#b374ff", "#cfa3ff", "#ece0ff"] },
+      "text-secondary": { "role": "neutral", "displayName": "Slate Plum", "canonical": "#62606e", "tonalRamp": ["#26252c", "#3c3a45", "#4f4d59", "#62606e", "#807e8a", "#a3a1ab", "#c7c5cc", "#eceaed"] },
+      "dark-surface": { "role": "neutral", "displayName": "Charcoal Plum", "canonical": "#2e2b33", "tonalRamp": ["#0e0d10", "#1a1820", "#231f29", "#2e2b33", "#454050", "#615c6d", "#8b859a", "#c7c3d1"] },
+      "brand-subtle": { "role": "neutral", "displayName": "Whisper Lavender", "canonical": "#f5f2fa", "tonalRamp": ["#c7bcdd", "#d6cde6", "#e6e0f0", "#f0ecf7", "#f5f2fa", "#f9f7fc", "#fcfbfd", "#ffffff"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Page-level greetings and titles only (\"Welcome, Anastasiia!\", \"Daily news\")." },
+      "headline": { "displayName": "Headline", "purpose": "First line of an AI chat response." },
+      "body-large": { "displayName": "Body Large", "purpose": "Prompt-bar input text and suggestion-chip labels only." },
+      "badge": { "displayName": "Badge", "purpose": "Pagination numbers and source-chip indices — the only tracked-uppercase text in the system." }
+    },
+    "shadows": [
+      { "name": "overlay-light", "value": "0px 8px 24px 0px rgba(0,0,0,0.08)", "purpose": "Add-menu popover in light mode." },
+      { "name": "overlay-dark", "value": "0px 8px 24px 0px rgba(0,0,0,0.4)", "purpose": "Popovers/dropdowns in dark mode; heavier so it reads against a dark page." },
+      { "name": "dropdown", "value": "0px 2px 10px 0px rgba(85,69,110,0.09)", "purpose": "Sidebar search-results dropdown." },
+      { "name": "modal", "value": "0px 18px 24px rgba(0,0,0,0.15)", "purpose": "Create Feed dialog — the heaviest shadow in the system." },
+      { "name": "hover-lift", "value": "0px 2px 5px rgba(85,69,110,0.09)", "purpose": "Prompt bar hovered/focused border glow." },
+      { "name": "ambient-card", "value": "0px 4px 24px 0px rgba(85,69,110,0.03)", "purpose": "TemplateCard's near-imperceptible resting shadow (the one deliberate exception to Flat-By-Default)." }
+    ],
+    "motion": [
+      { "name": "spin-slow", "value": "spin 6s linear infinite", "purpose": "The AI-listening orb in the voice-input modal." },
+      { "name": "spin-loader", "value": "spin 1s linear infinite", "purpose": "Default Tailwind spin, used for the file-uploading spinner." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled call-to-action button (e.g. \"Create feed\").",
+      "html": "<button class=\"ds-btn-primary\">Create feed</button>",
+      "css": ".ds-btn-primary { background: #55456e; color: #ffffff; font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: 600; line-height: 24px; padding: 6px 16px; border: none; border-radius: 9999px; cursor: pointer; transition: opacity 0.15s; } .ds-btn-primary:hover { opacity: 0.9; } .ds-btn-primary:focus-visible { outline: 3px solid #d1c4e6; outline-offset: 2px; } .ds-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Outline button for secondary actions (e.g. \"Cancel\").",
+      "html": "<button class=\"ds-btn-secondary\">Cancel</button>",
+      "css": ".ds-btn-secondary { background: transparent; color: #55456e; font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: 600; line-height: 24px; padding: 6px 16px; border: 1px solid #8d73b6; border-radius: 9999px; cursor: pointer; transition: border-color 0.15s; } .ds-btn-secondary:hover { border-color: #9747ff; } .ds-btn-secondary:focus-visible { outline: 3px solid #d1c4e6; outline-offset: 2px; }"
+    },
+    {
+      "name": "Purple Chip",
+      "kind": "chip",
+      "refersTo": "chip-purple",
+      "description": "Soft-tint schedule/category tag.",
+      "html": "<span class=\"ds-chip-purple\">Daily 8:00 AM</span>",
+      "css": ".ds-chip-purple { display: inline-flex; align-items: center; justify-content: center; height: 24px; padding: 0 8px; background: #edecff; color: #5e55d1; font-family: 'Open Sans', sans-serif; font-size: 12px; font-weight: 400; line-height: 16px; border-radius: 8px; white-space: nowrap; }"
+    },
+    {
+      "name": "Source Chip",
+      "kind": "chip",
+      "refersTo": "source-chip",
+      "description": "Numbered citation reference on an AI chat response.",
+      "html": "<div class=\"ds-source-chip\"><span class=\"ds-source-chip-badge\">1</span><span class=\"ds-source-chip-label\">Website_document-name-example_V1</span></div>",
+      "css": ".ds-source-chip { display: flex; align-items: center; gap: 8px; width: 222px; padding: 4px 8px; background: #f9fafb; border: 1px solid #e3e4e5; border-radius: 9999px; } .ds-source-chip:hover { background: #e8eef4; border-color: #b0b2be; } .ds-source-chip-badge { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 18px; height: 18px; background: #ffffff; border: 1px solid #e3e4e5; border-radius: 9999px; font-family: 'Open Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: #62606e; } .ds-source-chip-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'Open Sans', sans-serif; font-size: 12px; font-weight: 400; line-height: 16px; color: #62606e; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Labeled single-line text input (Create Feed modal's \"Feed name\").",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Feed name <span class=\"ds-field-required\">*</span></span><input class=\"ds-field-input\" type=\"text\" placeholder=\"e.g. Competitor launches\"></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; width: 100%; } .ds-field-label { font-family: 'Open Sans', sans-serif; font-size: 12px; font-weight: 600; line-height: 16px; color: #1c1b1f; } .ds-field-required { color: #dd524c; } .ds-field-input { width: 100%; padding: 6px 8px 6px 12px; background: #ffffff; border: 1px solid #d9e3ed; border-radius: 9999px; font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; color: #1c1b1f; box-sizing: border-box; } .ds-field-input::placeholder { color: #61647a; } .ds-field-input:focus { outline: none; border-color: #6e598e; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Daily News feed card footer + header text block (image omitted — content-only preview).",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-body\"><p class=\"ds-card-title\">Competitor tracking</p><p class=\"ds-card-subtitle\">Based on your recent request</p><p class=\"ds-card-desc\">Track updates from competitors in the last 24 hours.</p></div><div class=\"ds-card-footer\"><span class=\"ds-card-footer-text\">Next: 8:00 AM</span></div></div>",
+      "css": ".ds-card { display: flex; flex-direction: column; width: 320px; border: 1px solid #d9e3ed; border-radius: 12px; background: #ffffff; overflow: hidden; } .ds-card-body { display: flex; flex-direction: column; gap: 8px; padding: 16px; } .ds-card-title { margin: 0; font-family: 'Open Sans', sans-serif; font-size: 16px; font-weight: 600; line-height: 24px; color: #1c1b1f; } .ds-card-subtitle { margin: 0; font-family: 'Open Sans', sans-serif; font-size: 12px; font-weight: 400; line-height: 16px; color: #61647a; } .ds-card-desc { margin: 0; font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; color: #1c1b1f; } .ds-card-footer { display: flex; align-items: center; height: 56px; padding: 0 16px; border-top: 1px solid #d9e3ed; } .ds-card-footer-text { font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; color: #62606e; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Calm Copilot",
+    "overview": "AI Agent is a work tool, not a stage — it earns trust by staying out of the way. The system is built almost entirely from pills and soft rectangles (rounded-full buttons and chips, 12–20px-radius cards and fields), a single restrained plum-to-violet accent, and near-total flatness at rest. Depth is reserved for the moments that need it: a popover lifting off the page, a modal claiming focus, a prompt bar responding to hover. Nothing else casts a shadow.\n\nThe voice is calm and uncluttered, modern and minimal: generous whitespace, one accent color doing the work of ten, and typography that never shouts. Components feel soft and precise — gently rounded, but every state (hover, focus, error, disabled) is deliberately specified rather than left to browser defaults.",
+    "keyCharacteristics": [
+      "One accent family (Deep Plum → Electric Violet) carries brand weight; everything else is near-neutral.",
+      "Flat by default; shadow is exclusively an overlay/elevation signal, never decoration.",
+      "Pills and soft rectangles everywhere — no sharp corners outside functional exceptions (checkboxes).",
+      "Full parallel dark theme, not a filter: every surface, border, and text color has its own confirmed dark value."
+    ],
+    "rules": [
+      { "name": "The One-Accent Rule", "body": "Deep Plum and Electric Violet are the only saturated colors allowed to lead a component. Every other hue in the system (chip colors, status colors, file-type colors) is a small, contained accent — never a page-level color.", "section": "colors" },
+      { "name": "The Two-Weight Rule", "body": "Only 400 (regular) and 600 (semibold) appear in running UI; 700 (bold) is reserved for the badge scale and a handful of emphasis spans in AI response bullet lists.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "If a component is part of the page's resting layout, it has no shadow. Shadow is reserved for things the user did not put there themselves (popovers, modals) or things responding live to the cursor (hover).", "section": "elevation" },
+      { "name": "The Elevated-Surface Rule", "body": "Dark-mode overlays use a lighter surface color (#3d3845) than the page around them (#1c1b1f/#2e2b33), paired with a visible border and the heavier dark shadow — the lightness jump reads as \"lifted\" even though contrast against the page is intentionally modest, not WCAG-literal.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep every resting surface flat (no shadow) and reserve shadow for overlays and hover.",
+      "Do use Deep Plum / Electric Violet as the only saturated, page-level accent; everything else stays a contained, small-area color (chips, status, file-type badges).",
+      "Do default to pill or 12–20px-radius shapes; use the near-sharp 2px radius only for checkboxes.",
+      "Do give every interactive state (hover, focus, error, disabled) its own confirmed color — never rely on opacity alone to signal disabled.",
+      "Do build the dark theme from its own confirmed neutral set (#1c1b1f/#2e2b33/#1f1730/#3d3845), not by inverting or filtering the light-mode palette."
+    ],
+    "donts": [
+      "Don't add a shadow to a component that's part of the page's resting layout — if it's not a popover, modal, or hover state, it stays flat.",
+      "Don't introduce a new saturated hue for a one-off feature; reuse the chip/tag or status palette instead of inventing a color.",
+      "Don't use file-type recognition colors (PDF red, Word blue, Excel green, PowerPoint orange) anywhere outside the file-attachment chip — they're a utility signal, not brand color.",
+      "Don't sharpen a card, button, or panel corner below the established radius scale; the checkbox exception is deliberate and singular, not a precedent."
+    ]
+  }
+}
