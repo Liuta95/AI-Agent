@@ -72,7 +72,7 @@ type SidebarProps = {
 export function Sidebar({
   dark = false,
   onToggleDark,
-  collapsed: initialCollapsed = false,
+  collapsed: collapsedProp,
   activeView = "home",
   extraChats = [],
   activeChatId = null,
@@ -81,7 +81,12 @@ export function Sidebar({
   onNewChat,
   onSelectChat,
 }: SidebarProps) {
-  const [collapsed, setCollapsed] = useState(initialCollapsed);
+  // When the caller doesn't force a state, start collapsed on narrow viewports (below ~1024px)
+  // so the 206px expanded rail doesn't compete with content for space on load. The user's own
+  // toggle always wins after that — this only picks the initial default.
+  const [collapsed, setCollapsed] = useState(
+    () => collapsedProp ?? (typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches),
+  );
   const [searchValue, setSearchValue] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);

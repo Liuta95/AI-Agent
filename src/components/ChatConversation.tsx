@@ -42,10 +42,11 @@ export function ChatConversation({ query, dark = false, className }: ChatConvers
   return (
     <div
       className={
-        className || "flex h-full flex-1 flex-col items-center justify-between overflow-hidden px-12 pb-3 pt-4"
+        className ||
+        "flex h-full min-w-0 flex-1 flex-col items-center justify-between overflow-hidden px-4 pb-3 pt-4 sm:px-8 lg:px-12"
       }
     >
-      <div className="scrollbar-thin flex w-[728px] flex-1 flex-col items-start gap-4 overflow-y-auto">
+      <div className="scrollbar-thin flex w-full max-w-[728px] flex-1 flex-col items-start gap-4 overflow-y-auto">
         <UserMessage text={query} dark={dark} />
         <ChatText
           heading={responseHeading}
@@ -70,7 +71,7 @@ export function ChatConversation({ query, dark = false, className }: ChatConvers
           </div>
         </div>
       </div>
-      <div className="mt-4 w-[728px] shrink-0">
+      <div className="mt-4 w-full max-w-[728px] shrink-0">
         <PromptBar dark={dark} />
       </div>
     </div>

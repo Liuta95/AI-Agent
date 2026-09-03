@@ -117,11 +117,11 @@ export function DailyNewsPage({ dark = false, onCreateFeed, className }: DailyNe
     <div
       className={
         className ||
-        "scrollbar-thin flex h-full flex-1 flex-col items-center gap-10 overflow-y-auto px-12 pb-10 pt-10"
+        "scrollbar-thin flex h-full min-w-0 flex-1 flex-col items-center gap-10 overflow-y-auto px-4 pb-10 pt-10 sm:px-8 lg:px-12"
       }
     >
       <div className="flex w-full max-w-[1180px] flex-col items-center gap-4">
-        <div className="flex w-full items-start justify-between pl-[135px]">
+        <div className="flex w-full flex-col items-center gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-0 sm:pl-[135px]">
           <div className="flex flex-1 flex-col items-center gap-1 text-center">
             <h1 className={`text-[32px] font-semibold leading-[48px] ${dark ? "text-white" : "text-text-primary"}`}>
               Daily news
@@ -152,10 +152,10 @@ export function DailyNewsPage({ dark = false, onCreateFeed, className }: DailyNe
           />
         </div>
 
-        <div className="flex w-full items-center justify-between">
-          <Tabs>
+        <div className="flex w-full items-center justify-between gap-3">
+          <Tabs className="scrollbar-thin flex min-w-0 flex-1 items-center gap-2 overflow-x-auto">
             {FILTERS.map((f) => (
-              <Tab key={f} selected={f === filter} dark={dark} onClick={() => setFilter(f)}>
+              <Tab key={f} selected={f === filter} dark={dark} onClick={() => setFilter(f)} className="shrink-0">
                 {f}
               </Tab>
             ))}
@@ -170,7 +170,7 @@ export function DailyNewsPage({ dark = false, onCreateFeed, className }: DailyNe
         </div>
       </div>
 
-      <div className="grid w-full max-w-[1180px] grid-cols-2 gap-4">
+      <div className="grid w-full max-w-[1180px] grid-cols-1 gap-4 sm:grid-cols-2">
         {feeds.map((feed, i) => (
           <DailyNewsCard key={i} {...feed} dark={dark} />
         ))}

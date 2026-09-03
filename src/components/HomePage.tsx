@@ -20,9 +20,9 @@ type HomePageProps = {
 
 export function HomePage({ dark = false, onSend }: HomePageProps) {
   return (
-    <div className="flex h-full min-w-0 flex-1 flex-col items-center justify-center pb-3">
-      <div className="flex w-[728px] shrink-0 flex-col items-start justify-center gap-8 pt-16">
-        <div className="flex w-full shrink-0 flex-col items-center gap-1 whitespace-nowrap text-center">
+    <div className="flex h-full min-w-0 flex-1 flex-col items-center justify-center px-4 pb-3 sm:px-8">
+      <div className="flex w-full max-w-[728px] shrink-0 flex-col items-start justify-center gap-8 pt-16">
+        <div className="flex w-full shrink-0 flex-col items-center gap-1 text-center">
           <p className={`text-[32px] font-semibold leading-[48px] ${dark ? "text-white" : "text-text-primary"}`}>
             Welcome, Anastasiia!
           </p>

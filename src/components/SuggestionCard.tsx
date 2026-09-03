@@ -23,7 +23,7 @@ export function SuggestionCard({ icon, label, state = "default", dark = false, o
     <button
       type="button"
       onClick={onClick}
-      className={`flex shrink-0 items-center justify-center gap-2 overflow-clip rounded-2xl px-4 py-2 ${stateClasses(state, dark)}`}
+      className={`flex max-w-full shrink-0 items-center justify-center gap-2 overflow-clip rounded-2xl px-4 py-2 ${stateClasses(state, dark)}`}
     >
       <span className="flex size-6 shrink-0 items-center justify-center">
         <img
@@ -35,7 +35,7 @@ export function SuggestionCard({ icon, label, state = "default", dark = false, o
         />
       </span>
       <span
-        className={`whitespace-nowrap text-center text-base font-normal leading-6 ${
+        className={`min-w-0 text-center text-base font-normal leading-6 ${
           dark ? "text-white" : state === "selected" ? "text-secondary-text" : "text-text-primary"
         }`}
       >

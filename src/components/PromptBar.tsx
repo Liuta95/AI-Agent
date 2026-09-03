@@ -223,7 +223,7 @@ export function PromptBar({
     <div
       className={
         className ||
-        `relative flex w-[728px] shrink-0 flex-col items-start justify-center rounded-field border p-0 ${borderClasses}`
+        `relative flex w-full max-w-[728px] shrink-0 flex-col items-start justify-center rounded-field border p-0 ${borderClasses}`
       }
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

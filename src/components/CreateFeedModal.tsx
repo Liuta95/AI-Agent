@@ -121,14 +121,14 @@ export function CreateFeedModal({ open, dark = false, onClose, onCreate }: Creat
 
         <div className="flex w-full flex-col items-start gap-2">
           <p className={`text-xs font-bold leading-4 ${dark ? "text-white" : "text-[#1c1a16]"}`}>Delivery days</p>
-          <div className="flex w-full items-start gap-2">
+          <div className="flex w-full flex-wrap items-start gap-2">
             {DAYS.map((day) => (
               <Tab
                 key={day}
                 selected={days.includes(day)}
                 dark={dark}
                 onClick={() => toggleDay(day)}
-                className="flex-1"
+                className="flex-[0_0_auto] sm:flex-1"
               >
                 <span className="w-full text-center">{day}</span>
               </Tab>

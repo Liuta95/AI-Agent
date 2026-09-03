@@ -13,7 +13,9 @@ export function UserMessage({ text, size = "big", hovered = false, dark = false,
     <div
       className={
         className ||
-        `flex flex-col items-end gap-3 ${size === "small" ? "w-[568px]" : "w-[728px] pl-40"}`
+        // pl-[22%] mirrors the Figma spec's 160px inset on a 728px column proportionally, so the
+        // bubble stays right-aligned without eating a fixed chunk of a narrow viewport.
+        `flex w-full flex-col items-end gap-3 ${size === "small" ? "max-w-[568px]" : "pl-[22%]"}`
       }
     >
       <div
