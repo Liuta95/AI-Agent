@@ -63,17 +63,19 @@ export function DailyNewsCard({
         </div>
         <div className="flex w-full flex-col items-start gap-2 px-4">
           <div className="flex w-full items-start justify-between">
-            <div className="flex flex-col items-start gap-0.5">
-              <p className={`text-base font-semibold leading-6 ${dark ? "text-white" : "text-text-primary"}`}>
+            <div className="flex min-w-0 flex-col items-start gap-0.5">
+              <p className={`break-words text-base font-semibold leading-6 ${dark ? "text-white" : "text-text-primary"}`}>
                 {title}
               </p>
               <p className={`text-xs font-normal leading-4 ${dark ? "text-[#b0b2be]" : "text-[#61647a]"}`}>
                 {subtitle}
               </p>
             </div>
-            <Tag color="purple">{schedule}</Tag>
+            <span className="shrink-0">
+              <Tag color="purple">{schedule}</Tag>
+            </span>
           </div>
-          <p className={`text-sm font-normal leading-6 ${dark ? "text-white" : "text-text-primary"}`}>
+          <p className={`w-full break-words text-sm font-normal leading-6 ${dark ? "text-white" : "text-text-primary"}`}>
             {description}
           </p>
           <div className="flex items-start gap-2">

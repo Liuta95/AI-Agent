@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/Button";
 import { Tabs, Tab } from "./ui/Tabs";
 import { Dropdown } from "./ui/Dropdown";
@@ -6,6 +6,7 @@ import { DailyNewsCard } from "./ui/DailyNewsCard";
 import { PaginationBar } from "./ui/Pagination";
 import addIcon from "../assets/icons/add.svg";
 import searchIcon from "../assets/icons/search.svg";
+import type { FeedCardData } from "../lib/feeds";
 
 const FILTERS = ["All feeds", "Competitors", "Market", "Product", "Performance"];
 
@@ -102,19 +103,29 @@ const feeds = [
 
 type DailyNewsPageProps = {
   dark?: boolean;
+  /** Feeds the user created this session, newest first; shown above the sample feeds. */
+  createdFeeds?: FeedCardData[];
   onCreateFeed?: () => void;
   className?: string;
 };
 
-export function DailyNewsPage({ dark = false, onCreateFeed, className }: DailyNewsPageProps) {
+export function DailyNewsPage({ dark = false, createdFeeds = [], onCreateFeed, className }: DailyNewsPageProps) {
   const [filter, setFilter] = useState(FILTERS[0]);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("recent");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const allFeeds = [...createdFeeds, ...feeds];
+
+  // Bring a newly created feed into view — it's added at the top of the list.
+  useEffect(() => {
+    if (createdFeeds.length > 0) scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  }, [createdFeeds.length]);
 
   return (
     <div
+      ref={scrollRef}
       className={
         className ||
         "scrollbar-thin flex h-full min-w-0 flex-1 flex-col items-center gap-10 overflow-y-auto px-4 pb-10 pt-10 sm:px-8 lg:px-12"
@@ -171,8 +182,8 @@ export function DailyNewsPage({ dark = false, onCreateFeed, className }: DailyNe
       </div>
 
       <div className="grid w-full max-w-[1180px] grid-cols-1 gap-4 sm:grid-cols-2">
-        {feeds.map((feed, i) => (
-          <DailyNewsCard key={i} {...feed} dark={dark} />
+        {allFeeds.map((feed, i) => (
+          <DailyNewsCard key={`${feed.title}-${i}`} {...feed} dark={dark} />
         ))}
       </div>
 

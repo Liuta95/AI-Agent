@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sidebar } from "./components/Sidebar";
 import { HomePage } from "./components/HomePage";
 import { DailyNewsPage } from "./components/DailyNewsPage";
 import { ChatConversation } from "./components/ChatConversation";
 import { CreateFeedModal } from "./components/CreateFeedModal";
-import type { NewFeed } from "./components/CreateFeedModal";
+import { Alert } from "./components/ui/Alert";
+import { feedToCard, type FeedCardData, type NewFeed } from "./lib/feeds";
 
 type View = "home" | "daily-news" | "chat";
 
@@ -22,10 +23,20 @@ export default function App() {
   const [feedModalOpen, setFeedModalOpen] = useState(false);
   const [chats, setChats] = useState<Chat[]>([]);
   const [activeChatId, setActiveChatId] = useState<string | null>(null);
+  const [createdFeeds, setCreatedFeeds] = useState<FeedCardData[]>([]);
+  const [notice, setNotice] = useState<string | null>(null);
+
+  // Success banner dismisses itself; a newer notice restarts the timer.
+  useEffect(() => {
+    if (!notice) return;
+    const t = window.setTimeout(() => setNotice(null), 5000);
+    return () => window.clearTimeout(t);
+  }, [notice]);
 
   function handleCreateFeed(feed: NewFeed) {
-    console.log("Created feed", feed);
+    setCreatedFeeds((prev) => [feedToCard(feed), ...prev]);
     setFeedModalOpen(false);
+    setNotice(`Feed “${feed.name}” created. It's at the top of your list.`);
   }
 
   function handleSend(query: string) {
@@ -66,11 +77,16 @@ export default function App() {
         {view === "home" ? (
           <HomePage dark={dark} onSend={handleSend} />
         ) : view === "daily-news" ? (
-          <DailyNewsPage dark={dark} onCreateFeed={() => setFeedModalOpen(true)} />
+          <DailyNewsPage dark={dark} createdFeeds={createdFeeds} onCreateFeed={() => setFeedModalOpen(true)} />
         ) : (
           activeChat && <ChatConversation query={activeChat.query} dark={dark} />
         )}
       </div>
+      {notice && (
+        <div role="status" className="fixed inset-x-0 top-4 z-[60] flex justify-center px-4">
+          <Alert type="success" message={notice} onClose={() => setNotice(null)} />
+        </div>
+      )}
       <CreateFeedModal
         open={feedModalOpen}
         dark={dark}

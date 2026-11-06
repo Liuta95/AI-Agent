@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Modal } from "./ui/Modal";
 import { TextField } from "./ui/TextField";
 import { Textarea } from "./ui/Textarea";
@@ -7,37 +7,19 @@ import { Tab } from "./ui/Tabs";
 import { Button } from "./ui/Button";
 import closeIcon from "../assets/icons/close-small.svg";
 import clockIcon from "../assets/icons/clock.svg";
+import {
+  CATEGORIES,
+  DAYS,
+  DELIVERY_TIMES,
+  FEED_NAME_MAX,
+  FEED_PROMPT_MAX,
+  FREQUENCIES,
+  validateFeed,
+  type FeedErrors,
+  type NewFeed,
+} from "../lib/feeds";
 
-const CATEGORIES = [
-  { label: "Competitors", value: "competitors" },
-  { label: "Market", value: "market" },
-  { label: "Product", value: "product" },
-  { label: "Performance", value: "performance" },
-];
-
-const FREQUENCIES = [
-  { label: "Daily", value: "daily" },
-  { label: "Weekly", value: "weekly" },
-  { label: "Monthly", value: "monthly" },
-];
-
-const DELIVERY_TIMES = [
-  { label: "8:00 AM", value: "08:00" },
-  { label: "9:00 AM", value: "09:00" },
-  { label: "12:00 PM", value: "12:00" },
-  { label: "4:00 PM", value: "16:00" },
-];
-
-const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-export type NewFeed = {
-  name: string;
-  prompt: string;
-  category: string;
-  frequency: string;
-  days: string[];
-  deliveryTime: string;
-};
+export type { NewFeed };
 
 type CreateFeedModalProps = {
   open: boolean;
@@ -46,24 +28,66 @@ type CreateFeedModalProps = {
   onCreate?: (feed: NewFeed) => void;
 };
 
+const INITIAL_DAYS = ["Mon", "Tue", "Wed", "Fri"];
+
 export function CreateFeedModal({ open, dark = false, onClose, onCreate }: CreateFeedModalProps) {
   const [name, setName] = useState("");
   const [prompt, setPrompt] = useState("");
   const [category, setCategory] = useState("competitors");
   const [frequency, setFrequency] = useState("daily");
-  const [days, setDays] = useState<string[]>(["Mon", "Tue", "Wed", "Fri"]);
+  const [days, setDays] = useState<string[]>(INITIAL_DAYS);
   const [deliveryTime, setDeliveryTime] = useState("08:00");
+  // Errors only appear after a submit attempt, then clear field-by-field as the user fixes them.
+  const [errors, setErrors] = useState<FeedErrors>({});
+  const [submitted, setSubmitted] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // A fresh modal every time: closing (Cancel, Esc, backdrop) or creating discards the draft.
+  useEffect(() => {
+    if (open) return;
+    setName("");
+    setPrompt("");
+    setCategory("competitors");
+    setFrequency("daily");
+    setDays(INITIAL_DAYS);
+    setDeliveryTime("08:00");
+    setErrors({});
+    setSubmitted(false);
+  }, [open]);
+
+  function current(overrides: Partial<NewFeed> = {}): NewFeed {
+    return { name, prompt, category, frequency, days, deliveryTime, ...overrides };
+  }
+
+  // Once the user has tried to submit, re-validate on every change so errors vanish as they're fixed
+  // (and reappear if they break a field again). Deriving it from state avoids stale-closure bugs.
+  useEffect(() => {
+    if (submitted) setErrors(validateFeed({ name, prompt, category, frequency, days, deliveryTime }));
+  }, [submitted, name, prompt, category, frequency, days, deliveryTime]);
 
   function toggleDay(day: string) {
     setDays((prev) => (prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]));
   }
 
-  function handleCreate() {
-    onCreate?.({ name, prompt, category, frequency, days, deliveryTime });
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    const feed = current();
+    const found = validateFeed(feed);
+    setSubmitted(true);
+    setErrors(found);
+    if (Object.keys(found).length > 0) {
+      // Keep everything the user typed; move focus to the first problem.
+      requestAnimationFrame(() => {
+        formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+      });
+      return;
+    }
+    onCreate?.({ ...feed, name: feed.name.trim(), prompt: feed.prompt.trim() });
   }
 
   return (
     <Modal open={open} onClose={onClose} dark={dark}>
+      <form ref={formRef} noValidate onSubmit={handleSubmit} className="contents">
       <div className="flex w-full items-center justify-between">
         <p className={`text-xl font-semibold leading-6 ${dark ? "text-white" : "text-text-primary"}`}>
           Create new feed
@@ -87,6 +111,8 @@ export function CreateFeedModal({ open, dark = false, onClose, onCreate }: Creat
           value={name}
           onChange={setName}
           placeholder="e.g. Competitor launches"
+          maxLength={FEED_NAME_MAX}
+          error={errors.name}
           dark={dark}
         />
 
@@ -95,6 +121,8 @@ export function CreateFeedModal({ open, dark = false, onClose, onCreate }: Creat
           required
           value={prompt}
           onChange={setPrompt}
+          maxLength={FEED_PROMPT_MAX}
+          error={errors.prompt}
           placeholder="e.g. Track competitor product launches, pricing changes, and feature announcements in the AI sector"
           onAiAssist={() => {}}
           dark={dark}
@@ -134,6 +162,11 @@ export function CreateFeedModal({ open, dark = false, onClose, onCreate }: Creat
               </Tab>
             ))}
           </div>
+          {errors.days && (
+            <p role="alert" className={`text-xs font-normal leading-4 ${dark ? "text-[#ff8a84]" : "text-[#b3261e]"}`}>
+              {errors.days}
+            </p>
+          )}
         </div>
 
         <Dropdown
@@ -147,13 +180,14 @@ export function CreateFeedModal({ open, dark = false, onClose, onCreate }: Creat
       </div>
 
       <div className="flex w-full items-center justify-end gap-3">
-        <Button variant="secondary" dark={dark} onClick={onClose}>
+        <Button type="button" variant="secondary" dark={dark} onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="primary" dark={dark} onClick={handleCreate}>
+        <Button type="submit" variant="primary" dark={dark}>
           Create feed
         </Button>
       </div>
+      </form>
     </Modal>
   );
 }

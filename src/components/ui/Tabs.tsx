@@ -23,6 +23,7 @@ export function Tab({ selected = false, disabled = false, dark = false, children
     <button
       type="button"
       disabled={disabled}
+      aria-pressed={selected}
       onClick={onClick}
       className={`flex items-center justify-center rounded-full px-3 py-1 text-sm font-normal leading-6 transition-colors ${
         disabled
